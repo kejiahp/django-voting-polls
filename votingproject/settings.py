@@ -20,7 +20,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# django-insecure-%j*i%e2d=wgj6tnr8at^=yvc7p=2$&ekx)*7jtlm)^euqtl^h)
 secreter= os.environ.get("CLEVER_VOTING")
 SECRET_KEY = 'secreter'
 
