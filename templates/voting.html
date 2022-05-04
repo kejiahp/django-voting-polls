@@ -1,0 +1,30 @@
+{% extends 'navbar_temp.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class = "col-12 d-flex justify-content-center">
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch text-dark card border-0">
+        <img class="card-img-top" src="{% static 'images/beauty.jpg' %}" alt="Card image cap">
+        <div class="card-body text-center">
+            <h5 class="card-title mb-2">OJOLOWON ADEFOLARIN OLUWADARASIMI</h5>
+            <p class="card-text">PRT Project Title:</p>
+            <p class="card-text">No of current Votes:</p>
+        </div>
+        </div>
+    </div>
+
+    <form class="mt-5">
+        <div class="form-group mb-4">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <small id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.</small>
+        </div>
+        <h3>Reference Number:</h3>
+        <div class="form-group mb-4">
+          <label for="NoofVote">Number of Votes</label>
+          <input type="number" class="form-control" id="NoofVote" value="1" min="1">
+        </div>
+        <button type="submit" class="btn btn-warning">VOTE</button>
+      </form>
+</div>
+{% endblock content %}

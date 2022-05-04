@@ -1,9 +1,9 @@
 from django.urls import path
-from voters.views import home,about,male_contestants,female_contestants
+from voters.views import home,about,vote_page,vote_flutter
 
 urlpatterns = [
     path('', home ,name="home"),
     path('about/',about,name="about"),
-    path('contestantsmale/',male_contestants,name="male-cont"),
-    path('contestantsfemale/',female_contestants,name= 'female_cont'),
+    path('vote/',vote_page,name="vote"),
+    path('vote/voting/',vote_flutter,name="voting-pay")
 ]
