@@ -129,6 +129,36 @@
       </div>
       </footer>
 
+      <script src="https://js.paystack.co/v1/inline.js"></script> 
+      <script>
+        function payWithPaystack() {
+          var handler = PaystackPop.setup({
+            key: "{{ paystackTestPubKey }}",
+            email: "{{ fieldValues.email }}",
+            amount: "{{ amount }}",
+            currency: 'NGN',
+            ref: '' +Math.floor((Math.random() * 1000000000) + 1),
+            metadata: {
+                custom_fields: [
+                   {
+                       display_name: "Mobile Number",
+                       variable_name: "mobile_number",
+                       value: "+2348012345678"
+                   }
+                ]
+             },
+            callback: function(response) {
+              var reference = response.reference;
+              console.log(response)
+              alert('Payment complete! Reference: ' + reference);
+            },
+            onClose: function() {
+              alert('Transaction was not completed, window closed.');
+            },
+          });
+          handler.openIframe();
+        }
+      </script>
       <script src="{% static 'js/bootstrap.min.js' %}"></script>
       <script src="{% static 'js/base_temp.js' %}"></script>
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
