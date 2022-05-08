@@ -34,3 +34,6 @@
 .con-with-us{
   word-wrap: break-word;
 }
+#proceed-btn{
+  display: none;
+}

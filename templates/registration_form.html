@@ -1,0 +1,25 @@
+{% extends 'navbar_temp.html' %}
+{% block content %}
+<div class="container">
+    <h3 class="text-center mt-3 mb-5">Enter a Valid Email</h3>
+    <p class="">
+        It takes courage and self determination to attain the crown 
+        of the most beautiful campus queen. Take the bold step now, purchase the form for <span class="text-warning "><b>5000</b></span> only.
+    <span class="text-warning ">By Purchasing the form, you agree to our Terms and Conditions and to be of good conduct and obey the rules of the competition </span></p>
+    <form action="{% url 'purchase-valid' %}" method="POST">
+        {% include 'partials/_message.html' %}
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control mt-3 mb-3" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="Enter email" required>
+          <small id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.<span class="text-warning"> This email will be where you receive the application form <span class="text-danger"><b>ENSURE IT IS VALID,THERE ARE NO REFUNDS.</b></span></span></small>
+        </div>
+        <div class="form-group mt-3">
+            <label for="phonenumber">Phone Number</label>
+            <input type="text" class="form-control mt-2 mb-3" id="phonenumber" name="phonenumber" placeholder="Phone Number" required>
+          </div>
+        <button class="btn btn-warning mt-3 ">BUY FORM</button>
+        <button class="btn btn-success mt-3" type="button" id="proceed-btn" onclick="payWithPaystack()" style="display: {{display}};">PROCEED</button>
+      </form>
+</div>
+{% endblock content %}

@@ -129,28 +129,29 @@
       </div>
       </footer>
 
-      <script src="https://js.paystack.co/v1/inline.js"></script> 
-      <script>
+      <script src="https://js.paystack.co/v1/inline.js"></script>
+
+      <script type="text/javascript">
         function payWithPaystack() {
           var handler = PaystackPop.setup({
-            key: "{{ paystackTestPubKey }}",
-            email: "{{ fieldValues.email }}",
-            amount: "{{ amount }}",
+            key: '{{paykey}}', 
+            email:"{{register_email.email}}",
+            amount: "{{ amount }}" * 100,
             currency: 'NGN',
-            ref: '' +Math.floor((Math.random() * 1000000000) + 1),
+            ref: '{{ register_email.ref }}',
             metadata: {
                 custom_fields: [
                    {
                        display_name: "Mobile Number",
                        variable_name: "mobile_number",
-                       value: "+2348012345678"
+                       value: "{{ register_email.phonenumber }}"
                    }
                 ]
              },
             callback: function(response) {
               var reference = response.reference;
               console.log(response)
-              alert('Payment complete! Reference: ' + reference);
+              window.location.href = {% url 'verify-pay' reference %}
             },
             onClose: function() {
               alert('Transaction was not completed, window closed.');
