@@ -1,11 +1,14 @@
-from atexit import register
-from django.shortcuts import render,redirect
+import email
+from django.shortcuts import get_object_or_404, render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views import View
 from django.conf import settings
 from contestants.models import RegistrationPurchase
 from django.conf import settings
+from django.urls.exceptions import NoReverseMatch
+from paystackapi.transaction import Transaction
+from paystackapi.paystack import Paystack
 
 def male_contestants(request):
     return render(request, "male_cont.html")
@@ -19,31 +22,34 @@ def apply(request):
 def purchaseform(request):
     return render(request,"registration_form.html")
 
-def purchaseform_valid(request):
+def proceed(request):
+    try:
+        return render(request, "proceedtopay.html")
+    except NoReverseMatch as exc:
+        return redirect('home')
+
+def form_valid(request):
     if request.method == "POST":
         email = request.POST["email"]
         phonenumber = request.POST["phonenumber"]
         #ENSURING NO CONTESTANT IS REGISTERS USING ANOTHER CONTESTANTS EMAIL OR PHONENUMBER
-        if not RegistrationPurchase.objects.filter(email=email,verified=True).exists():
-            if not RegistrationPurchase.objects.filter(phonenumber=phonenumber,verified=True).exists():
-                register_email = RegistrationPurchase.objects.create(email=email,phonenumber=phonenumber)
-                register_email.save()
-                print(register_email)
-                context = {
-                    "display":'block',
-                    "register_email":register_email,
-                    "paykey": settings.PAYSTACKPUBKEY,
-                    "amount":5000
-                }
-                return render(request,"registration_form.html",context)
-            messages.error(request,"A contestant already has this number")
+        try:
+            if not RegistrationPurchase.objects.filter(email=email,verified=True).exists():
+                if not RegistrationPurchase.objects.filter(phonenumber=phonenumber,verified=True).exists():
+                    register_email = RegistrationPurchase.objects.create(email=email,phonenumber=phonenumber)
+                    register_email.save()
+                    context = {
+                        "register_email":register_email,
+                        "paykey": settings.PAYSTACKPUBKEY,
+                        "amount":5000
+                    }
+                    return render(request,"proceedtopay.html",context)
+                messages.error(request,"A contestant already has this number")
+                return render(request,"registration_form.html")
+            messages.error(request,"A contestant already has this email")
             return render(request,"registration_form.html")
-        messages.error(request,"A contestant already has this email")
-        return render(request,"registration_form.html")
-
-def verify_payment(request,ref):
-    pass
-
+        except:
+           return redirect('home') 
 
 
 class RegistrationView(View):
@@ -83,3 +89,10 @@ class RegistrationView(View):
 
         messages.success(request, "Account Successfully Created")
         return render(request, "apply.html")
+
+def verify_trans(request, ref_num):
+    #{'status': False, 'message': 'Transaction reference not found'}
+    paystack_secret_key = settings.PAYSTACK_SECRET_KEY
+    paystack = Paystack(secret_key=paystack_secret_key)
+    response = paystack.transaction.verify(reference=ref_num)
+    print(response['data']['status'], response['data']['reference'], response['data']['amount'])
