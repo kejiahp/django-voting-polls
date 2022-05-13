@@ -1,5 +1,8 @@
 import email
+from weakref import ref
+from wsgiref.util import request_uri
 from django.shortcuts import get_object_or_404, render,redirect
+from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views import View
@@ -9,6 +12,7 @@ from django.conf import settings
 from django.urls.exceptions import NoReverseMatch
 from paystackapi.transaction import Transaction
 from paystackapi.paystack import Paystack
+from django.views.decorators.http import require_POST
 
 def male_contestants(request):
     return render(request, "male_cont.html")
@@ -16,8 +20,23 @@ def male_contestants(request):
 def female_contestants(request):
     return render(request, "female_cont.html")
 
-def apply(request):
-    return render(request, "apply.html")
+def purchaseissues(request):
+    return render(request, "form_purchased.html")
+
+@require_POST
+def purchaseissues_valid(request):
+    ref = request.POST["refnumber"]
+    payment = get_object_or_404(RegistrationPurchase, ref = ref)
+    if payment.verified == True:
+        messages.success(request,"Purchase was verified")
+        return render(request,"form_purchased.html")
+    messages.error(request, "Purchase was not verified")
+    return render(request, "form_purchased.html")
+
+def apply(request, ref):
+    register_object = get_object_or_404(RegistrationPurchase ,ref = ref,verified=True,completed = False)
+    email = register_object.email
+    return render(request, "apply.html",{"email":email,"ref":ref})
 
 def purchaseform(request):
     return render(request,"registration_form.html")
@@ -57,42 +76,21 @@ class RegistrationView(View):
         return render(request, "apply.html")
 
     def post(self, request):
-        firstname = request.POST["firstname"]
-        lastname = request.POST["lastname"]
-        username = request.POST["username"]
-        email = request.POST["email"]
-        password1 = request.POST["password1"]
-        password2 = request.POST["password2"]
-        context = {
-            "fieldValues":request.POST
-        }
-
-        if User.objects.filter(username=username).exists():
-            messages.error(request,"Username already taken. Try again")
-            return render(request, "apply.html", context)
-        if User.objects.filter(email=email).exists():
-            messages.error(request,"Email already taken. Try again")
-            return render(request, "apply.html", context)
-        if password1 != password2:
-            messages.error(request, "Confirm Password and Password do not match")
-            return render(request, "apply.html", context)
-        if len(password1) < 6:
-            messages.error(request,"Password Lenght must be greater than 6")
-            return render(request, "apply.html", context)
-        if not username.islower():
-            username = username.lower()
-        #creating an object of the user model
-        user = User.objects.create_user(username=username,email=email,first_name=firstname,last_name=lastname)
-        user.set_password(password1)
-        user.is_active = True
-        user.save()
-
-        messages.success(request, "Account Successfully Created")
-        return render(request, "apply.html")
+        pass
 
 def verify_trans(request, ref_num):
-    #{'status': False, 'message': 'Transaction reference not found'}
     paystack_secret_key = settings.PAYSTACK_SECRET_KEY
     paystack = Paystack(secret_key=paystack_secret_key)
     response = paystack.transaction.verify(reference=ref_num)
-    print(response['data']['status'], response['data']['reference'], response['data']['amount'])
+    amount = 500000
+    reference_num = response['data']['reference']
+    if response['data']['status'] == 'success' & response['data']['amount'] == amount:
+        if RegistrationPurchase.objects.filter(ref = response['data']['reference']).exists():
+            obj = RegistrationPurchase.objects.get(ref = response['data']['reference'])
+            obj.verified = True
+            messages.success(request, "Verification complete, You have successfully purchased the form.")
+            return redirect(reverse("apply",kwargs={"ref":reference_num}))
+    else:
+        messages.error(request, "Verification Unsuccessful, Form not purchased")
+        return render(request,"registration_form.html")
+

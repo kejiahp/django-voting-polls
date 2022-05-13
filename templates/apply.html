@@ -2,34 +2,52 @@
 {% block content %}
 <div class="container">
     <h1 class="text-center">APPLICATION FORM</h1>
-    <form action="{% url 'apply-validate' %}" method="POST">
+    <form action="{% url 'apply-validate' %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       {% include 'partials/_message.html' %}
+          <input type="hidden" value="{{ ref }}" name="refnum" disabled >
         <div class="form-group mb-3">
             <label for="forFirstname">First Name</label>
-            <input type="text" class="form-control" id="forFirstname" placeholder="Firstname" name="firstname" value = {{fieldValues.firstname}}>
+            <input type="text" class="form-control" id="forFirstname" placeholder="Firstname" name="firstname">
         </div>
         <div class="form-group mb-3">
             <label for="forLastname">Last Name</label>
-            <input type="text" class="form-control" id="forLastname" placeholder="Lastname" name="lastname" value = {{fieldValues.lastname}}>
+            <input type="text" class="form-control" id="forLastname" placeholder="Lastname" name="lastname">
         </div>
         <div class="form-group mb-3">
-            <label for="forUsername">User Name <span class="text-warning">(lowercase only)</span></label>
-            <input type="text" class="form-control" id="forUsername" placeholder="Username" name="username" value = {{fieldValues.username}}>
+            <label for="instagramhandle">Instagram Handle</label>
+            <input type="text" class="form-control" id="instagramhandle" placeholder="Instagram" name="instagramhandle">
+        </div>
+        <div class="form-group mb-3">
+          <label for="tellus">Tell Us</label>
+          <textarea class="form-control" name="tellus" id="tellus" cols="30" rows="5" placeholder="Why you want to win" maxlength="200"></textarea>
         </div>
         <div class="form-group mb-3">
           <label for="exampleInputEmail1">Email address <span class="text-warning">MUST BE A VALID EMAIL</span></label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" value = {{fieldValues.email}}>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email">
           <small id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.<span class="text-warning"> This will be used to communicate with you.</span></small>
         </div>
         <div class="form-group mb-3">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password1">
+          <label for="image1">Image 1</label>
+          <input type="file" class="form-control" id="image1" name="image1" accept="image/*">
         </div>
         <div class="form-group mb-3">
-            <label for="exampleInputPassword2">Confirm Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Confirm Password" name="password2">
-          </div>
+            <label for="image2">Image 2</label>
+            <input type="file" class="form-control" id="image2" name="image2" accept="image/*">
+        </div>
+
+        <!-- Default unchecked -->
+        <div class="custom-control custom-radio mb-3">
+          <input type="radio" class="custom-control-input" id="defaultUnchecked" name="defaultExampleRadios" value="M" checked>
+          <label class="custom-control-label" for="defaultUnchecked">Male</label>
+        </div>
+
+        <!-- Default checked -->
+        <div class="custom-control custom-radio mb-3">
+          <input type="radio" class="custom-control-input" id="defaultChecked" name="defaultExampleRadios" value="F">
+          <label class="custom-control-label" for="defaultChecked">Female</label>
+        </div>
+
         <button type="submit" class="btn btn-warning">SUBMIT</button>
       </form>
 </div>
