@@ -1,7 +1,8 @@
-from email.policy import default
+from pyexpat import model
 import secrets
 from PIL import Image
 from django.db import models
+from django.utils import timezone
 
 class RegistrationPurchase(models.Model):
     ref = models.CharField(max_length=200)
@@ -9,7 +10,7 @@ class RegistrationPurchase(models.Model):
     phonenumber = models.CharField(max_length=15, default="08000000000", null=True)
     verified = models.BooleanField(default=False)
     completed = models.BooleanField(default=False)
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField(default=timezone.now, blank=True)
 
     def __str__(self):
         return f"Email:{self.email}|id:{self.id}"
@@ -23,21 +24,23 @@ class RegistrationPurchase(models.Model):
         super().save(*args, **kwargs)
 
 class RegisterContestant(models.Model):
-    firstname = models.CharField(max_length=30)
-    lastname = models.CharField(max_length=30)
-    instagram_handle = models.CharField(max_length=30)
-    tell_us = models.TextField()
+    refnum = models.CharField(max_length=200)
+    firstname = models.CharField(max_length=30,blank=False)
+    lastname = models.CharField(max_length=30,blank=False)
+    instagram_handle = models.CharField(max_length=30,blank=False)
+    tell_us = models.TextField(default="I WANT TO WIN")
     email = models.EmailField()
-    image1 = models.ImageField(default="", upload_to="contestant/%Y/%m/%d")
-    image2 = models.ImageField(default="", upload_to="contestant/%Y/%m/%d")
+    phonenumber = models.CharField(max_length=20)
+    image1 = models.ImageField(default="defaultuser.jpg", upload_to="contestant/%Y/%m/%d")
+    image2 = models.ImageField(default="defaultuser.jpg", upload_to="contestant/%Y/%m/%d")
     gender = models.CharField(max_length=10)
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField(default=timezone.now, blank=True)
 
     def __str__(self):
         return f"{self.firstname}|{self.id}"
 
     def save(self,*args, **kwargs):
-        super().save()
+        super().save(*args, **kwargs)
         img = Image.open(self.image1.path)
         if img.height > 120 or img.width > 120:
             img = img.resize((800,800), Image.ANTIALIAS)

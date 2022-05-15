@@ -128,8 +128,8 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Managing staitc files
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'votingproject/static')]
-STATIC_ROOT = os.path.join(BASE_DIR,"static")
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+STATIC_ROOT = os.path.join(BASE_DIR,"/static/")
 
 MESSAGE_TAGS = {
     messages.ERROR:"danger"
@@ -138,3 +138,6 @@ MESSAGE_TAGS = {
 #PAYSTACK TESTING PUBLIC KEY
 PAYSTACKPUBKEY = os.environ.get("PAY_STACK_TEST_PUBKEY")
 PAYSTACK_SECRET_KEY = os.environ.get("PAYSTACKSCRTKEY")
+
+MEDIA_ROOT = os.path.join(BASE_DIR,"media")
+MEDIA_URL = '/media/'
