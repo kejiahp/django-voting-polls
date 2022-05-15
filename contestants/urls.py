@@ -1,7 +1,6 @@
 from django.urls import path
-from contestants.views import male_contestants,female_contestants,apply,RegistrationView,purchaseform,form_valid,verify_trans,proceed,purchaseissues,purchaseissues_valid,processcomplete
-from django.conf.urls.static import static
-from django.conf import settings
+from contestants.views import male_contestants,female_contestants,apply,RegistrationView,purchaseform,form_valid,verify_trans,purchaseissues,purchaseissues_valid,processcomplete
+
 
 
 urlpatterns = [
@@ -11,9 +10,8 @@ urlpatterns = [
    path('apply-validate/',RegistrationView.as_view(),name="apply-validate"),
    path('purchaseform/',purchaseform,name="buyform"),
    path('purchasevalid/',form_valid,name="purchase-valid"),
-   path('purchaseform/proceed/',proceed,name="proceed"),
    path('verify_trans/<str:ref_num>/',verify_trans,name="verify_trans"),
    path('purchaseissues/',purchaseissues,name='purchase-issues'),
    path("purchaseissues-valid/",purchaseissues_valid,name="purchaseissues-valid"),
    path("processcomplete/",processcomplete,name='processcomplete')
-]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+]

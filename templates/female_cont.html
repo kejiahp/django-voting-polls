@@ -17,65 +17,26 @@
         </div>
     </div>
 
+    {% if female_cont %}
+    {% for cont in female_cont %}
+
     <div class = "col-lg-4 col-md-6 d-flex align-items-stretch text-dark">
         <div class="card border-0">
-        <img class="card-img-top" src="{% static 'images/beauty.jpg' %}" alt="Card image cap">
+        <img class="card-img-top" src="{{ cont.image1.url }}" alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title mb-2">OJOLOWON ADEFOLARIN OLUWADARASIMI</h5>
-            <p class="card-text">PRT Project Title:</p>
-            <p class="card-text">No of current Votes:</p>
+            <h5 class="card-title mb-2">{{ cont.fullname }}</h5>
+            <p class="card-text">PRT Project Title: {{ cont.tell_us }}</p>
+            <p class="card-text">No of current Votes: 0</p>
             <a href="{% url 'vote' %}" class="btn btn-warning">VOTE</a>
         </div>
         </div>
     </div>
 
-    <div class = "col-lg-4 col-md-6 d-flex align-items-stretch text-dark">
-        <div class="card border-0">
-        <img class="card-img-top" src="{% static 'images/beauty.jpg' %}" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title mb-2">OJOLOWON ADEFOLARIN OLUWADARASIMI</h5>
-            <p class="card-text">PRT Project Title:</p>
-            <p class="card-text">No of current Votes:</p>
-            <a href="{% url 'vote' %}" class="btn btn-warning">VOTE</a>
-        </div>
-        </div>
-    </div>
-
-    <div class = "col-lg-4 col-md-6 d-flex align-items-stretch text-dark">
-        <div class="card border-0">
-        <img class="card-img-top" src="{% static 'images/beauty.jpg' %}" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title mb-2">OJOLOWON ADEFOLARIN OLUWADARASIMI</h5>
-            <p class="card-text">PRT Project Title:</p>
-            <p class="card-text">No of current Votes:</p>
-            <a href="{% url 'vote' %}" class="btn btn-warning">VOTE</a>
-        </div>
-        </div>
-    </div>
-
-    <div class = "col-lg-4 col-md-6 d-flex align-items-stretch text-dark">
-        <div class="card border-0">
-        <img class="card-img-top" src="{% static 'images/beauty.jpg' %}" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title mb-2">OJOLOWON ADEFOLARIN OLUWADARASIMI</h5>
-            <p class="card-text">PRT Project Title:</p>
-            <p class="card-text">No of current Votes:</p>
-            <a href="{% url 'vote' %}" class="btn btn-warning">VOTE</a>
-        </div>
-        </div>
-    </div>
-
-    <div class = "col-lg-4 col-md-6 d-flex align-items-stretch text-dark">
-        <div class="card border-0">
-        <img class="card-img-top" src="{% static 'images/beauty.jpg' %}" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title mb-2">OJOLOWON ADEFOLARIN OLUWADARASIMI</h5>
-            <p class="card-text">PRT Project Title:</p>
-            <p class="card-text">No of current Votes:</p>
-            <a href="{% url 'vote' %}" class="btn btn-warning">VOTE</a>
-        </div>
-        </div>
-    </div>
+    {% endfor %}
+    {% else %}
+    <h1 class="text-center">No Contestants present</h1>
+    <p class="text-center"><a href="{% url 'buyform' %}" class="btn btn-warning">APPLY</a></p>
+    {% endif %}
 
     
 </div>

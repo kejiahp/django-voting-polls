@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import get_object_or_404, render,redirect
 from django.urls import reverse
 from django.contrib import messages
@@ -11,10 +12,18 @@ from paystackapi.paystack import Paystack
 from django.views.decorators.http import require_POST
 
 def male_contestants(request):
-    return render(request, "male_cont.html")
+    male_cont = RegisterContestant.objects.filter(gender="Male")
+    context={
+        "male_cont":male_cont
+    }
+    return render(request, "male_cont.html",context)
 
 def female_contestants(request):
-    return render(request, "female_cont.html")
+    female_cont = RegisterContestant.objects.filter(gender="Female")
+    context = {
+        "female_cont":female_cont
+    }
+    return render(request, "female_cont.html",context)
 
 def purchaseissues(request):
     return render(request, "form_purchased.html")
@@ -30,17 +39,12 @@ def purchaseissues_valid(request):
     return render(request, "form_purchased.html")
 
 def apply(request, ref):
-    register_object = get_object_or_404(RegistrationPurchase ,ref = ref,verified=True,completed = False)
+    get_object_or_404(RegistrationPurchase ,ref = ref,verified=True,completed = False)
     return render(request, "apply.html",{"ref":ref})
 
 def purchaseform(request):
     return render(request,"registration_form.html")
 
-def proceed(request):
-    try:
-        return render(request, "proceedtopay.html")
-    except NoReverseMatch:
-        return redirect('home')
 
 def form_valid(request):
     if request.method == "POST":
@@ -55,8 +59,7 @@ def form_valid(request):
                     "paykey": settings.PAYSTACKPUBKEY,
                     "amount":5000
                 }
-                # return render(request,"proceedtopay.html",context)
-                return redirect(reverse("proceed"),context)
+                return render(request,"proceedtopay.html",context)
             else:
                 messages.error(request,"All fields must be filled")
                 return render(request, "registration_form.html")

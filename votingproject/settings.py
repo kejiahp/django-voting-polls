@@ -139,5 +139,5 @@ MESSAGE_TAGS = {
 PAYSTACKPUBKEY = os.environ.get("PAY_STACK_TEST_PUBKEY")
 PAYSTACK_SECRET_KEY = os.environ.get("PAYSTACKSCRTKEY")
 
-MEDIA_ROOT = os.path.join(BASE_DIR,"media")
+MEDIA_ROOT = os.path.join(BASE_DIR,"media/")
 MEDIA_URL = '/media/'

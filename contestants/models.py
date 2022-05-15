@@ -50,3 +50,6 @@ class RegisterContestant(models.Model):
         if img2.height > 120 or img2.width > 120:
             img2 = img2.resize((800,800), Image.ANTIALIAS)
             img2.save(self.image2.path)
+    @property
+    def fullname(self):
+        return f"{self.lastname} {self.firstname}"
