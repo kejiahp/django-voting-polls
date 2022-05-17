@@ -1,7 +1,6 @@
+from unicodedata import name
 from django.urls import path
-from contestants.views import male_contestants,female_contestants,apply,RegistrationView,purchaseform,form_valid,verify_trans,purchaseissues,purchaseissues_valid,processcomplete
-
-
+from contestants.views import male_contestants,female_contestants,apply,RegistrationView,purchaseform,form_valid,verify_trans,purchaseissues,purchaseissues_valid,processcomplete,form_valid_post
 
 urlpatterns = [
    path('male/',male_contestants,name="male-cont"),
@@ -13,5 +12,6 @@ urlpatterns = [
    path('verify_trans/<str:ref_num>/',verify_trans,name="verify_trans"),
    path('purchaseissues/',purchaseissues,name='purchase-issues'),
    path("purchaseissues-valid/",purchaseissues_valid,name="purchaseissues-valid"),
-   path("processcomplete/",processcomplete,name='processcomplete')
+   path("processcomplete/",processcomplete,name='processcomplete'),
+   path("valid-post/<int:id>",form_valid_post,name="valid_post"),
 ]

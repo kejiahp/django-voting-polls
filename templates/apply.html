@@ -8,45 +8,43 @@
           <input type="hidden" value="{{ ref }}" name="refnum" >
         <div class="form-group mb-3">
             <label for="forFirstname">First Name</label>
-            <input type="text" class="form-control" id="forFirstname" placeholder="Firstname" name="firstname" required>
+            <input type="text" class="form-control" id="forFirstname" placeholder="Firstname" name="firstname" required value="{{autofill.firstname}}">
         </div>
         <div class="form-group mb-3">
             <label for="forLastname">Last Name</label>
-            <input type="text" class="form-control" id="forLastname" placeholder="Lastname" name="lastname" required>
+            <input type="text" class="form-control" id="forLastname" placeholder="Lastname" name="lastname" required value="{{autofill.lastname}}">
         </div>
         <div class="form-group mb-3">
             <label for="instagramhandle">Instagram Handle</label>
-            <input type="text" class="form-control" id="instagramhandle" placeholder="Instagram" name="instagramhandle" required>
+            <input type="text" class="form-control" id="instagramhandle" placeholder="Instagram" name="instagramhandle" required value="{{autofill.instagramhandle}}">
         </div>
         <div class="form-group mb-3">
           <label for="tellus">Tell Us</label>
-          <textarea class="form-control" name="tellus" id="tellus" cols="30" rows="5" placeholder="Why you want to win" maxlength="200" required></textarea>
+          <textarea class="form-control" name="tellus" id="tellus" cols="30" rows="5" placeholder="Why you want to win" maxlength="200" required ></textarea>
         </div>
         <div class="form-group mb-3">
           <label for="phonenumber">Phone Number</label>
-          <input class="form-control" name="phonenumber" id="phonenumber" type="text" placeholder="Phone Number" required>
+          <input class="form-control" name="phonenumber" id="phonenumber" type="text" placeholder="Phone Number" required value="{{autofill.phonenumber}}">
         </div>
         <div class="form-group mb-3">
           <label for="exampleInputEmail1">Email address <span class="text-warning">MUST BE A VALID EMAIL</span></label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" required>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" required value="{{autofill.email}}">
           <small id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.<span class="text-warning"> This will be used to communicate with you.</span></small>
         </div>
         <div class="form-group mb-3">
           <label for="image1">Image 1 <small><span class="text-warning">This will be your model image</span></small></label>
-          <input type="file" class="form-control" id="image1" name="image1" accept="image/*" required>
+          <input type="file" class="form-control" id="image1" name="image1" accept="image/*" required >
         </div>
         <div class="form-group mb-3">
             <label for="image2">Image 2 <small><span class="text-warning">This will be your model image</span></small></label>
-            <input type="file" class="form-control" id="image2" name="image2" accept="image/*" required>
+            <input type="file" class="form-control" id="image2" name="image2" accept="image/*" required >
         </div>
 
-        <!-- Default unchecked -->
         <div class="custom-control custom-radio mb-3">
           <input type="radio" class="custom-control-input" id="defaultUnchecked" name="gender" value="Male" checked>
           <label class="custom-control-label" for="defaultUnchecked">Male</label>
         </div>
 
-        <!-- Default checked -->
         <div class="custom-control custom-radio mb-3">
           <input type="radio" class="custom-control-input" id="defaultChecked" name="gender" value="Female">
           <label class="custom-control-label" for="defaultChecked">Female</label>

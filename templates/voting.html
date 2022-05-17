@@ -1,5 +1,6 @@
 {% extends 'navbar_temp.html' %}
 {% load static %}
+{% load humanize %}
 {% block content %}
 <div class="container">
     <div class = "col-12 d-flex justify-content-center">
@@ -13,18 +14,15 @@
         </div>
     </div>
 
-    <form class="mt-5">
-        <div class="form-group mb-4">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          <small id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.</small>
-        </div>
-        <h3>Reference Number:</h3>
-        <div class="form-group mb-4">
-          <label for="NoofVote">Number of Votes</label>
-          <input type="number" class="form-control" id="NoofVote" value="1" min="1">
-        </div>
-        <button type="submit" class="btn btn-warning">VOTE</button>
-      </form>
+    <div class="mt-5 text-center mb-5">
+      <h3 class="text-warning">Email Address</h3>
+      <p >email@gmail.com</p>
+      <h3 class="text-warning">Reference Number</h3>
+      <p >nuibuib2b4ihb5ib</p>
+      <h3 class="text-warning">Number of Votes</h3>
+      <p >35</p>
+      <h3 class="text-warning">Total Price</h3>
+      <p >3500</p>
+    </div>
 </div>
 {% endblock content %}

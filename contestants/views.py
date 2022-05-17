@@ -1,4 +1,5 @@
 from multiprocessing import context
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render,redirect
 from django.urls import reverse
 from django.contrib import messages
@@ -54,17 +55,24 @@ def form_valid(request):
             if email != "" or phonenumber !="":
                 register_email = RegistrationPurchase.objects.create(email=email,phonenumber=phonenumber)
                 register_email.save()
-                context = {
-                    "register_email":register_email,
-                    "paykey": settings.PAYSTACKPUBKEY,
-                    "amount":5000
-                }
-                return render(request,"proceedtopay.html",context)
+                object_id = register_email.id
+                print(object_id)
+
+                return redirect(reverse("valid_post",args=(object_id,)))
             else:
                 messages.error(request,"All fields must be filled")
                 return render(request, "registration_form.html")
         except:
            return redirect('home')
+
+def form_valid_post(request,id):
+    register_email = get_object_or_404(RegistrationPurchase,id=id)
+    context = {
+            "register_email":register_email,
+            "paykey": settings.PAYSTACKPUBKEY,
+            "amount":5000
+    }
+    return render(request, "proceedtopay.html",context)
 
 
 class RegistrationView(View):
