@@ -1,4 +1,3 @@
-from pyexpat import model
 import secrets
 from PIL import Image
 from django.db import models
@@ -34,6 +33,8 @@ class RegisterContestant(models.Model):
     image1 = models.ImageField(default="defaultuser.jpg", upload_to="contestant/%Y/%m/%d")
     image2 = models.ImageField(default="defaultuser.jpg", upload_to="contestant/%Y/%m/%d")
     gender = models.CharField(max_length=10)
+    number_of_votes = models.IntegerField(default=0)
+    is_evicted = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now, blank=True)
 
     def __str__(self):

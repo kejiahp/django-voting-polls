@@ -1,5 +1,6 @@
 {% extends 'navbar_temp.html' %}
 {% load static %}
+{% load humanize %}
 {% block content %}
 <h1 class="text-center mt-2 mb-5 text-warning">Male Contestants</h1>
 <div class="container-fluid ps-md-5 pe-md-5 row gy-5 ">
@@ -10,9 +11,9 @@
         <img class="card-img-top" src="{{ cont.image1.url }}" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title mb-2">{{ cont.fullname }}</h5>
-            <p class="card-text">PRT Project Title: {{ cont.tell_us }}</p>
-            <p class="card-text">No of current Votes: 0</p>
-            <a href="{% url 'vote' %}" class="btn btn-warning">VOTE</a>
+            <p class="card-text">PRT Project Title: {{ cont.tell_us|title }}</p>
+            <p class="card-text">No of current Votes: {{ cont.number_of_votes|intcomma }}</p>
+            <a href="{% url 'vote' cont.id %}" class="btn btn-warning">VOTE</a>
         </div>
         </div>
     </div>

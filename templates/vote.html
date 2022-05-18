@@ -1,18 +1,38 @@
 {% extends 'navbar_temp.html' %}
+{% load static %}
+{% load humanize %}
 {% block content %}
 <div class="container">
     <h3 class="text-center">Enter Valid Information</h3>
-    <form>
+
+    <div class = "col-12 d-flex justify-content-center mb-3 mt-3">
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch text-dark card border-0">
+        <img class="card-img-top" src="{{ cont.image1.url }}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title mb-2">{{ cont.fullname }}</h5>
+            <p class="card-text">PRT Project Title: {{ cont.tell_us|title }}</p>
+            <p class="card-text">Instagram Handle: {{ cont.instagram_handle }}</p>
+            <p class="card-text">No of current Votes: {{ cont.number_of_votes|intcomma }}</p>
+        </div>
+        </div>
+    </div>
+
+    <form action="{% url 'vote-valid' %}" method="POST">
+      {% include "partials/_message.html" %}
+      {% csrf_token %}
         <div class="form-group mb-3">
           <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
           <small id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.</small>
           <b class="text-danger">Enter a valid email this is where your receipt will be sent to</b>
         </div>
         <div class="form-group mb-4">
           <label for="NoofVote">Number of Votes</label>
-          <input type="number" class="form-control" id="NoofVote" value="1" min="1">
+          <input type="number" name="numvotes" class="form-control" id="NoofVote" value="1" min="1" required>
+          <small class="text-warning">N{{ amt|intcomma }} per Vote</small>
         </div>
+        <input type="hidden" name="amount" value="{{ amt }}">
+        <input type="hidden" name="cont_id" value="{{ cont.id }}">
         <button type="submit" class="btn btn-warning mt-3">Submit</button>
       </form>
 </div>

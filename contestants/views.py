@@ -8,19 +8,18 @@ from django.conf import settings
 from contestants.models import RegistrationPurchase,RegisterContestant
 from django.conf import settings
 from django.urls.exceptions import NoReverseMatch
-from paystackapi.transaction import Transaction
 from paystackapi.paystack import Paystack
 from django.views.decorators.http import require_POST
 
 def male_contestants(request):
-    male_cont = RegisterContestant.objects.filter(gender="Male")
+    male_cont = RegisterContestant.objects.filter(gender="Male",is_evicted=False).order_by("-number_of_votes")
     context={
         "male_cont":male_cont
     }
     return render(request, "male_cont.html",context)
 
 def female_contestants(request):
-    female_cont = RegisterContestant.objects.filter(gender="Female")
+    female_cont = RegisterContestant.objects.filter(gender="Female",is_evicted=False).order_by("-number_of_votes")
     context = {
         "female_cont":female_cont
     }
@@ -128,7 +127,7 @@ def verify_trans(request, ref_num):
             obj.verified = True
             obj.save()
             messages.success(request, "Verification complete, You have successfully purchased the form.")
-            return redirect(reverse("apply",kwargs={"ref":reference_num}))
+            return redirect(reverse("apply",args=(reference_num,)))
     else:
         messages.error(request, "Verification Unsuccessful, Form not purchased")
         return render(request,"registration_form.html")
