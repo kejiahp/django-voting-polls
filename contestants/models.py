@@ -37,6 +37,9 @@ class RegisterContestant(models.Model):
     is_evicted = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now, blank=True)
 
+    class Meta:
+        ordering = ("-number_of_votes",)
+
     def __str__(self):
         return f"{self.firstname}|{self.id}"
 

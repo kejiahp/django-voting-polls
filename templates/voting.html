@@ -9,7 +9,7 @@
         <div class="card-body">
             <h5 class="card-title mb-2">{{ voter_details.contestant_id.fullname }}</h5>
             <p class="card-text">PRT Project Title: {{ voter_details.contestant_id.tell_us|title }}</p>
-            <p class="card-text">Instagram Handle: {{ voter_details.contestant_id.instagram_handle }}</p>
+            <p class="card-text">Instagram Handle: <a href="https://instagram.com/{{voter_details.contestant_id.instagram_handle}}">{{ voter_details.contestant_id.instagram_handle }}</a></p>
             <p class="card-text">No of current Votes: {{ voter_details.contestant_id.number_of_votes|intcomma }}</p>
         </div>
         </div>

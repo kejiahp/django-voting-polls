@@ -1,15 +1,18 @@
-from multiprocessing import context
-from django.http import HttpResponseRedirect
+from django.http import Http404
 from django.shortcuts import get_object_or_404, render,redirect
 from django.urls import reverse
 from django.contrib import messages
 from django.views import View
 from django.conf import settings
+from requests import request
 from contestants.models import RegistrationPurchase,RegisterContestant
 from django.conf import settings
 from django.urls.exceptions import NoReverseMatch
 from paystackapi.paystack import Paystack
 from django.views.decorators.http import require_POST
+from voters.models import VotePurchase
+
+from voters.models import VotePurchase
 
 def male_contestants(request):
     male_cont = RegisterContestant.objects.filter(gender="Male",is_evicted=False).order_by("-number_of_votes")
@@ -28,15 +31,27 @@ def female_contestants(request):
 def purchaseissues(request):
     return render(request, "form_purchased.html")
 
+def paychecker(pay,req = request):
+    if pay.verified == True:
+        messages.success(req,"Purchase was verified")
+    else:
+        messages.error(req, "Purchase was not verified")
+
 @require_POST
 def purchaseissues_valid(request):
     ref = request.POST["refnumber"]
-    payment = get_object_or_404(RegistrationPurchase, ref = ref)
-    if payment.verified == True:
-        messages.success(request,"Purchase was verified")
-        return render(request,"form_purchased.html")
-    messages.error(request, "Purchase was not verified")
-    return render(request, "form_purchased.html")
+    if RegistrationPurchase.objects.filter(ref = ref).exists():
+        payment = RegistrationPurchase.objects.get(ref = ref)
+        paychecker(payment,request)
+        return redirect('purchase-issues')
+    elif VotePurchase.objects.filter(ref = ref).exists():
+        payment = VotePurchase.objects.get(ref = ref)
+        paychecker(payment,request)
+        return redirect('purchase-issues')
+    else:
+        messages.error(request,"Transaction with reference "+ref+" was not found in our system")
+        return redirect('purchase-issues')
+
 
 def apply(request, ref):
     get_object_or_404(RegistrationPurchase ,ref = ref,verified=True,completed = False)
@@ -75,7 +90,7 @@ def form_valid_post(request,id):
 
 
 class RegistrationView(View):
-    def get(self,request):
+    def get(self):
         return redirect("home")
 
     def post(self, request):
@@ -121,7 +136,7 @@ def verify_trans(request, ref_num):
     response = paystack.transaction.verify(reference=ref_num)
     amount = 500000
     reference_num = response['data']['reference']
-    if response['data']['status'] == 'success' and response['data']['amount'] == amount:
+    if response["status"]==True and response["message"]=='Verification successful' and response['data']['status'] == 'success' and response['data']['amount'] == amount:
         if RegistrationPurchase.objects.filter(ref = response['data']['reference']).exists():
             obj = RegistrationPurchase.objects.get(ref = response['data']['reference'])
             obj.verified = True
@@ -134,3 +149,6 @@ def verify_trans(request, ref_num):
 
 def processcomplete(request):
     return render(request,"processcomplete.html")
+
+def awards(request):
+    return render(request, "awards.html")

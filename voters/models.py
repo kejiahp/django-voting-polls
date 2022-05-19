@@ -1,3 +1,4 @@
+import email
 from statistics import mode
 from django.db import models
 from django.utils import timezone
@@ -12,6 +13,9 @@ class VotePurchase(models.Model):
     amount = models.DecimalField(max_digits=7, decimal_places=2)
     verified = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now, blank=True)
+    
+    class Meta:
+        ordering = ("-amount",)
 
     def __str__(self):
         return f"Email:{self.email}|id:{self.id}"
@@ -28,3 +32,14 @@ class VotePurchase(models.Model):
             if not object_with_similar_ref:
                 self.ref = ref
         super().save(*args, **kwargs)
+
+
+class NewsLetterSubscriber(models.Model):
+    email = models.EmailField()
+    date_added = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ("-date_added",)
+
+    def __str__(self):
+        return f"{self.email}"

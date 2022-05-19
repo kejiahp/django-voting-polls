@@ -43,10 +43,11 @@
 
 
 
-      <form class="sub-to-us col-md-12 d-flex  justify-content-center flex-column flex-md-row align-items-center mt-5 mb-5">
+      <form class="sub-to-us col-md-12 d-flex  justify-content-center flex-column flex-md-row align-items-center mt-5 mb-5" action="{% url 'newsletter' %}" method="post">
+        {% csrf_token %}
         <h4 class="me-4 text-center">Sign Up for Newsletter</h4>
         <div class="form-group mb-2">
-          <input type="text" class="form-control text-center" placeholder="email@example.com">
+          <input type="email" name="email" class="form-control text-center" placeholder="email@example.com" required>
         </div>
         <button type="submit" class="btn btn-warning mb-2 ms-md-4">SUBSCRIBE</button>
       </form>
@@ -132,7 +133,7 @@
       </div>
       <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
         Designed By
-        <a class="text-reset fw-bold" href="https://github.com/kejiahp">kejiahp</a>
+        <a class="text-reset fw-bold" href="https://wa.me/+2348090872072">kejiah</a>
       </div>
       </footer>
       {% block scriptholder %}
