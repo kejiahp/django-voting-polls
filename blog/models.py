@@ -1,6 +1,7 @@
 from django.db import models
 from PIL import Image
 from django.utils import timezone
+from django.template.defaultfilters import slugify
 
 class Blog(models.Model):
     title = models.CharField(max_length=100,default="No Title")
@@ -8,6 +9,7 @@ class Blog(models.Model):
     author = models.CharField(max_length=50, default="No Author")
     description = models.TextField(default="No Description")
     is_displayed = models.BooleanField(default=True)
+    slug = models.SlugField(unique=True)
     date_created = models.DateTimeField(default=timezone.now)
 
     class Meta:
