@@ -35,6 +35,7 @@ class RegisterContestant(models.Model):
     gender = models.CharField(max_length=10)
     number_of_votes = models.IntegerField(default=0)
     is_evicted = models.BooleanField(default=False)
+    is_confirmed = models.BooleanField(default=False)
     date_created = models.DateTimeField(default=timezone.now, blank=True)
 
     class Meta:

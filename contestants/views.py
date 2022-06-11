@@ -15,14 +15,14 @@ from voters.models import VotePurchase
 from voters.models import VotePurchase
 
 def male_contestants(request):
-    male_cont = RegisterContestant.objects.filter(gender="Male",is_evicted=False).order_by("-number_of_votes")
+    male_cont = RegisterContestant.objects.filter(gender="Male",is_evicted=False,is_confirmed=True).order_by("-number_of_votes")
     context={
         "male_cont":male_cont
     }
     return render(request, "male_cont.html",context)
 
 def female_contestants(request):
-    female_cont = RegisterContestant.objects.filter(gender="Female",is_evicted=False).order_by("-number_of_votes")
+    female_cont = RegisterContestant.objects.filter(gender="Female",is_evicted=False,is_confirmed=True).order_by("-number_of_votes")
     context = {
         "female_cont":female_cont
     }
@@ -116,8 +116,8 @@ class RegistrationView(View):
                     reg_contestant.save()
                     payment.completed=True
                     payment.save()
-                    messages.success(request,'Contestant Sucessfully added')
-                    return redirect('processcomplete')
+                    messages.success(request,'Contestant Sucessfully added!')
+                    return redirect( reverse('jointhegroup',args=(refnum,)) )
                 else:
                     messages.error(request,"A contestant already as this email")
                     return render(request, "apply.html", context)
@@ -152,3 +152,11 @@ def processcomplete(request):
 
 def awards(request):
     return render(request, "awards.html")
+
+def jointhegroup(request,ref):
+    if RegistrationPurchase.objects.filter(ref=ref, verified=True,completed=True).exists():
+        if RegisterContestant.objects.filter(refnum=ref ,is_evicted=False,is_confirmed=False).exists():
+            return render(request, "jointhegroup.html")
+    else:
+        messages.error("Sorry, you are not eligible to join the group. Please contact Customer Care.(Link in footer of the page)")
+        return redirect('processcomplete')

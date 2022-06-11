@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'contestants',
     'voters',
     'django.contrib.humanize',
+    'blog'
 ]
 
 MIDDLEWARE = [
