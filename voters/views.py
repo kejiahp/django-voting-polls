@@ -45,7 +45,7 @@ def verify_vote(request,ref):
     paystack_secret_key = settings.PAYSTACK_SECRET_KEY
     paystack = Paystack(secret_key=paystack_secret_key)
     response = paystack.transaction.verify(reference=ref)
-    print(response)
+
     reference_num = response['data']['reference']
     voter = get_object_or_404(VotePurchase, ref = reference_num)
     voter_paid = voter.total_price

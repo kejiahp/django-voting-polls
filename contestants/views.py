@@ -1,4 +1,3 @@
-from django.http import Http404
 from django.shortcuts import get_object_or_404, render,redirect
 from django.urls import reverse
 from django.contrib import messages
@@ -7,10 +6,10 @@ from django.conf import settings
 from requests import request
 from contestants.models import RegistrationPurchase,RegisterContestant
 from django.conf import settings
-from django.urls.exceptions import NoReverseMatch
 from paystackapi.paystack import Paystack
 from django.views.decorators.http import require_POST
 from voters.models import VotePurchase
+from django.db.models import Q
 
 from voters.models import VotePurchase
 
@@ -160,3 +159,31 @@ def jointhegroup(request,ref):
     else:
         messages.error("Sorry, you are not eligible to join the group. Please contact Customer Care.(Link in footer of the page)")
         return redirect('processcomplete')
+
+def cont_finder(request):
+    if request.method == "POST":
+        searchvalue = request.POST["cont_search"]
+        searchvalue = searchvalue.strip()
+        candidate = RegisterContestant.objects.filter(Q(firstname__icontains=searchvalue)|Q(lastname__icontains=searchvalue),is_confirmed=True,gender="male")
+        if candidate:
+            context = {
+                "candidate":candidate
+            }
+            return render(request,"search_result.html",context)
+        else:
+            context = {"message":f"Sorry couldn't find results for search: {searchvalue}"}
+            return render(request,"search_result.html",context)
+
+def cont_finder_female(request):
+    if request.method == "POST":
+        searchvalue = request.POST["cont_search"]
+        searchvalue = searchvalue.strip()
+        candidate = RegisterContestant.objects.filter(Q(firstname__icontains=searchvalue)|Q(lastname__icontains=searchvalue),is_confirmed=True,gender="female")
+        if candidate:
+            context = {
+                "candidate":candidate
+            }
+            return render(request,"search_result.html",context)
+        else:
+            context = {"message":f"Sorry couldn't find results for search: {searchvalue}"}
+            return render(request,"search_result.html",context)

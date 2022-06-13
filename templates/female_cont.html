@@ -4,8 +4,15 @@
 {% block content %}
 <h1 class="text-center mt-2 mb-5 text-warning">Female Contestants</h1>
 
-<div class="container-fluid ps-md-5 pe-md-5 row gy-5">
+<div class="container-fluid ps-md-5 pe-md-5 row gy-5 ps-5">
     {% if female_cont %}
+    <form action="{% url 'search-contest' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group mb-4">
+            <input type="text" name="cont_search" class="form-control" placeholder="Search By Name" required>
+            <button type="submit" class="btn btn-warning mt-3 mb-3">Search</button>
+          </div>
+    </form>
     {% for cont in female_cont %}
 
     <div class = "col-lg-4 col-md-6 d-flex align-items-stretch text-dark">
