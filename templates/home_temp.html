@@ -32,8 +32,20 @@
         </div>
 
         <a class="nav-link" href="#">Gallery</a>
-        <a class="nav-link" href="{% url 'purchase-issues' %}">Verify Transc</a>
         <a class="nav-link" href="{% url 'about' %}">About</a>
+
+
+        <div class="dropdown show">
+          <a class="nav-link ms-3 me-3 dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            More...
+          </a>
+        
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'purchase-issues' %}">Verify Transaction</a>
+            <a class="dropdown-item" href="{% url 'blog-posts' %}">Blogs</a>
+          </div>
+        </div>
+
       </nav>
     </div>
   </header>

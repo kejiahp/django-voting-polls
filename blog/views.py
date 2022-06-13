@@ -11,7 +11,7 @@ def bloglist(request):
     return render(request,"blog_home.html",context)
 
 def blogdetails(request,id):
-    post = get_object_or_404(Blog, id=id)
+    post = get_object_or_404(Blog, slug=id)
     context = {
         "post":post
     }
