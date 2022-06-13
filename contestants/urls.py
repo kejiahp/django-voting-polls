@@ -17,4 +17,5 @@ urlpatterns = [
    path("awards/",awards,name="awards"),
    path('jointhegroup/<str:ref>',jointhegroup,name="jointhegroup"),
    path('search-contestant/',cont_finder,name='search-contest'),
+   path('search-contestant-female/',cont_finder_female,name='search-contest-female'),
 ]

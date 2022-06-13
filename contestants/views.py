@@ -164,7 +164,7 @@ def cont_finder(request):
     if request.method == "POST":
         searchvalue = request.POST["cont_search"]
         searchvalue = searchvalue.strip()
-        candidate = RegisterContestant.objects.filter(Q(firstname__icontains=searchvalue)|Q(lastname__icontains=searchvalue),is_confirmed=True,gender="male")
+        candidate = RegisterContestant.objects.filter(Q(firstname__icontains=searchvalue)|Q(lastname__icontains=searchvalue),is_confirmed=True,gender="Male")
         if candidate:
             context = {
                 "candidate":candidate
@@ -178,7 +178,7 @@ def cont_finder_female(request):
     if request.method == "POST":
         searchvalue = request.POST["cont_search"]
         searchvalue = searchvalue.strip()
-        candidate = RegisterContestant.objects.filter(Q(firstname__icontains=searchvalue)|Q(lastname__icontains=searchvalue),is_confirmed=True,gender="female")
+        candidate = RegisterContestant.objects.filter(Q(firstname__icontains=searchvalue)|Q(lastname__icontains=searchvalue),is_confirmed=True,gender="Female")
         if candidate:
             context = {
                 "candidate":candidate

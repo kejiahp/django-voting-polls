@@ -6,7 +6,7 @@
 
 <div class="container-fluid ps-md-5 pe-md-5 row gy-5 ps-5">
     {% if female_cont %}
-    <form action="{% url 'search-contest' %}" method="post">
+    <form action="{% url 'search-contest-female' %}" method="post">
         {% csrf_token %}
         <div class="form-group mb-4">
             <input type="text" name="cont_search" class="form-control" placeholder="Search By Name" required>
