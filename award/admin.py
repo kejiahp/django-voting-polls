@@ -1,3 +1,5 @@
 from django.contrib import admin
+from award.models import AwardsCategory,AwardsContestant
 
-# Register your models here.
+admin.site.register(AwardsContestant)
+admin.site.register(AwardsCategory)

@@ -1,0 +1,55 @@
+{% extends 'navbar_temp.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class="container">
+    <div class = "col-12 d-flex justify-content-center mb-3 mt-3">
+        <div class="col-lg-4 col-md-6 d-flex align-items-stretch text-dark card border-0">
+        <img class="card-img-top" src="{{ voter_details.contestant_id.image1.url }}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title mb-2">{{ voter_details.contestant_id.fullname }}</h5>
+            <p class="card-text">PRT Project Title: {{ voter_details.contestant_id.tell_us|title }}</p>
+            <p class="card-text">Instagram Handle: <a href="https://instagram.com/{{voter_details.contestant_id.instagram_handle}}">{{ voter_details.contestant_id.instagram_handle }}</a></p>
+            <p class="card-text">No of current Votes: {{ voter_details.contestant_id.number_of_votes|intcomma }}</p>
+        </div>
+        </div>
+    </div>
+
+    <div class="mt-5 text-center mb-5 con-with-us">
+      <h3 class="text-warning">Email Address</h3>
+      <p >{{voter_details.email}}</p>
+      <h3 class="text-danger con-with-us"></h3>
+      <h3 class="text-warning">Reference Number</h3>
+      <small class="text-danger">Please copy,save or screenshot the reference number, so as to resolve transactions issues that may appear</small>
+      <p >{{ voter_details.ref }}</p>
+      <h3 class="text-warning">Number of Votes</h3>
+      <p >{{ voter_details.number_of_votes }}</p>
+      <h3 class="text-warning">Total Price</h3>
+      <p >{{ voter_details.total_price }}</p>
+      <button class="btn btn-success mt-3" type="button" onclick="payWithPaystack()">PROCEED</button>
+    </div>
+</div>
+{% endblock content %}
+{% block scriptholder %}
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<script type="text/javascript">
+  function payWithPaystack() {
+    var handler = PaystackPop.setup({
+      key: '{{paykey}}', 
+      email:"{{voter_details.email}}",
+      amount: "{{ voter_details.total_price }}" * 100,
+      currency: 'NGN',
+      ref: '{{ voter_details.ref }}',
+      callback: function(response) {
+        console.log(response)
+        window.location.href = "{% url 'award-vote-verify' voter_details.ref %}"
+      },
+      onClose: function() {
+        alert('Transaction was not completed, window closed.');
+      },
+    });
+    handler.openIframe();
+  }
+</script>
+{% endblock scriptholder %}

@@ -1,0 +1,16 @@
+{% extends 'navbar_temp.html' %}
+{% block content %}
+<div class="container">
+    <h2 class="text-center mt-3">Verify Your Transaction</h2>
+    <form class="mt-4" action="{% url 'purchaseissues-valid' %}" method="post">
+        {% csrf_token %}
+        {% include 'partials/_message.html' %}
+        <div class="form-group mt-3">
+            <label for="refnumber">Reference Number</label>
+            <input type="text" class="form-control mt-2 mb-3" id="refnumber" name="refnumber" placeholder="Reference Number" required>
+        </div>
+        <button class="btn btn-warning mt-3" >SUBMIT</button>
+    </form>
+    <p class="mt-3">Customer Care: <a href="mailto:RaveUniversal@gmail.com">RaveUniversal@gmail.com</a></p>
+</div>
+{% endblock content %}

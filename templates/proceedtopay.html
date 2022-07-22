@@ -1,0 +1,43 @@
+{% extends 'navbar_temp.html' %}
+{% block content %}
+<div class="container con-with-us text-center mt-4">
+  <h5 class="mb-4 mt-4">After Purchasing form and registeration, you will receive a group invite link please ensure you join the group through the link provided.</h5>
+    <p class="">Email: {{register_email.email}}</p>
+    <p class="">Phone Number: {{ register_email.phonenumber }}</p>
+    <p class="text-warning">Reference Number: {{register_email.ref}}</p>
+    <h3 class="text-danger con-with-us">Please copy,save or screenshot the reference number, so as to resolve transactions issues that may appear</h3>
+    <button class="btn btn-success mt-3" type="button" onclick="payWithPaystack()">PROCEED</button>
+</div>
+{% endblock content %}
+{% block scriptholder %}
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<script type="text/javascript">
+  function payWithPaystack() {
+    var handler = PaystackPop.setup({
+      key: '{{paykey}}', 
+      email:"{{register_email.email}}",
+      amount: "{{ amount }}" * 100,
+      currency: 'NGN',
+      ref: '{{ register_email.ref }}',
+      metadata: {
+          custom_fields: [
+             {
+                 display_name: "Mobile Number",
+                 variable_name: "mobile_number",
+                 value: "{{ register_email.phonenumber }}"
+             }
+          ]
+       },
+      callback: function(response) {
+        console.log(response)
+        window.location.href = "{% url 'verify_trans' register_email.ref %}"
+      },
+      onClose: function() {
+        alert('Transaction was not completed, window closed.');
+      },
+    });
+    handler.openIframe();
+  }
+</script>
+{% endblock scriptholder %}

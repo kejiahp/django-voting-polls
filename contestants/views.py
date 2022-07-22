@@ -5,6 +5,7 @@ from django.views import View
 from django.conf import settings
 from requests import request
 from contestants.models import RegistrationPurchase,RegisterContestant
+from award.models import AwardVotePurchase
 from django.conf import settings
 from paystackapi.paystack import Paystack
 from django.views.decorators.http import require_POST
@@ -45,6 +46,10 @@ def purchaseissues_valid(request):
         return redirect('purchase-issues')
     elif VotePurchase.objects.filter(ref = ref).exists():
         payment = VotePurchase.objects.get(ref = ref)
+        paychecker(payment,request)
+        return redirect('purchase-issues')
+    elif AwardVotePurchase.objects.filter(ref = ref).exists():
+        payment = AwardVotePurchase.objects.get(ref = ref)
         paychecker(payment,request)
         return redirect('purchase-issues')
     else:

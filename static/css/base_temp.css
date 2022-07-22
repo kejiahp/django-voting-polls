@@ -60,3 +60,14 @@
 .body-height{
   height: 100vh;
 }
+
+.dropdown-menu {
+  max-height: 280px;
+  overflow-y: auto;
+}
+@media (min-width:200px) {
+  .dropdown-menu {
+    max-height: 280px;
+    overflow-y: auto;
+  }
+}

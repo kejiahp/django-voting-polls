@@ -1,0 +1,34 @@
+{% extends 'navbar_temp.html' %}
+{% block content %}
+<h1 class="text-center mb-5">Post Details</h1>
+<div class="container">
+    {% if post%}
+    <div class="card mb-5 text-dark">
+        <div class="card-img-top blog-post">
+            <img class="w-100" src="{{ post.image.url }}" alt="Card image cap">
+        </div>
+        <div class="card-body place-post mt-3 mb-3">
+            <div class="text-center mt-4 mb-4">
+                <h1 class="card-title">{{ post.title }}</h1>
+                <p class="card-text">Written By: {{ post.author|title }} on <small class="text-muted">{{ post.date_created }}</small></p>
+            </div>
+          <p class="card-text text-start">{{ post.description }}</p>
+          <p class="card-text"></p>
+        </div>
+    </div>
+    {% else %}
+    <div>
+        <p>This Post Doesn't exist</p>
+    </div>
+    {% endif %}
+    <div class="text-center">
+        <p>If you enjoyed this article please share with your friends</p>
+        <div class="d-flex justify-content-center align-items-center">
+            <a href="#" class="text-reset me-4 share-post"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="text-reset me-4 share-post"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-reset me-4 share-post"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

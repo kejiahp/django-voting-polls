@@ -1,0 +1,38 @@
+{% extends 'navbar_temp.html' %}
+{% block content %}
+
+<div class="container-fluid text-center">
+    {% if categories %}
+
+        {% for category in categories %}
+            <div class="category">
+                <h3 class="mt-5 mb-5" id='{{ category.name }}'>{{ category.name }}</h3>
+                <div class="container-fluid ps-md-5 pe-md-5 row gy-5 ps-5">
+                    {% if category.awardscontestant_set.all %}
+                        {% for contestant in category.awardscontestant_set.all %}
+                            <div class = "col-lg-4 col-md-6 d-flex align-items-stretch text-dark">
+                                <div class="card border-0">
+                                    <div class="card-img-top">
+                                        <img class="w-100" src="{{ contestant.image1.url }}" alt="Card image cap">
+                                    </div>
+                                <div class="card-body text-center">
+                                    <h4 class="card-title mb-2 ">{{contestant.fullname}}</h4>
+                                    <p class="card-text">{{ contestant.tell_us }}</p>
+                                    <p class="card-text">No of current Votes: {{ contestant.number_of_votes }}</p>
+                                    <a href="{% url 'award-vote' contestant.id %}" class="btn btn-warning">View Contest</a>
+                                </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% else %}
+                        <p class="text-center text-warning"><small>Sorry, there are currently no contestants in this category</small></p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>{{ message }}</p>
+    {% endif %}
+</div>
+
+{% endblock content %}

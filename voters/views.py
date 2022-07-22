@@ -65,7 +65,7 @@ def verify_vote(request,ref):
 
     else:
         messages.error(request, "Verification Unsuccessful, Vote not added")
-        return redirect("processcomplete")   
+        return redirect("processcomplete")
 
 @require_POST
 def newsletter(request):

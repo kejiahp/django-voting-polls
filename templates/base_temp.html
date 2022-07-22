@@ -31,7 +31,7 @@
           </div>
         </div>
 
-        <a class="nav-link" href="#">Gallery</a>
+        <a class="nav-link" href="{% url 'award-categories'%}">Awards</a>
         <a class="nav-link" href="{% url 'about' %}">About</a>
 
         <div class="dropdown show">
@@ -42,6 +42,7 @@
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item" href="{% url 'purchase-issues' %}">Verify Transaction</a>
             <a class="dropdown-item" href="{% url 'blog-posts' %}">Blogs</a>
+            <a class="dropdown-item" href="#">Gallery</a>
           </div>
         </div>
 
