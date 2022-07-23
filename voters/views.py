@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from contestants.models import RegisterContestant
@@ -6,6 +7,9 @@ from voters.models import VotePurchase,NewsLetterSubscriber
 from django.views.decorators.http import require_POST
 from django.conf import settings
 from paystackapi.paystack import Paystack
+from hashids import Hashids
+
+hashid = Hashids(salt=settings.HASHID_SALT, min_length=8)
 
 amt_per_voter = "100"
 
@@ -31,6 +35,8 @@ def vote_pg_valid(request):
             voter = VotePurchase(email=email, number_of_votes=number_of_votes,contestant_id=cont,amount=amount)
             voter.save()
             vid = voter.id
+            #encoding the id of the VotePurchase
+            vid = hashid.encode(vid)
             return redirect(reverse("voting-pay", args=(vid,)))
         messages.error(request, "Invalid Amount")
         return redirect(reverse("vote",args=(cont_id,)))
@@ -38,6 +44,11 @@ def vote_pg_valid(request):
     return redirect(reverse("vote",args=(cont_id,)))
 
 def vote_flutter(request,id):
+    try:
+        id = hashid.decode(id)
+        id = id[0]
+    except:
+        raise Http404
     voter_details = get_object_or_404(VotePurchase, id=id)
     return render(request, "voting.html",{"voter_details":voter_details,"paykey":settings.PAYSTACKPUBKEY})
 

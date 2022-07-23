@@ -1,10 +1,14 @@
 from django.conf import settings
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from award.models import AwardsCategory,AwardsContestant,AwardVotePurchase
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from paystackapi.paystack import Paystack
+from hashids import Hashids
+
+hashid = Hashids(salt=settings.HASHID_SALT, min_length=8)
 
 def award_categories(request):
     categories = AwardsCategory.objects.all()
@@ -48,6 +52,7 @@ def award_vote_valid(request):
             voter = AwardVotePurchase(email=email, number_of_votes=number_of_votes,contestant_id=cont,amount=amount)
             voter.save()
             vid = voter.id
+            vid = hashid.encode(vid)
             return redirect(reverse("award-voting", args=(vid,)))
         messages.error(request, "Invalid Amount")
         return redirect(reverse("award-vote",args=(cont_id,)))
@@ -56,6 +61,11 @@ def award_vote_valid(request):
 
 
 def award_vote_paystack(request,id):
+    try:
+        id = hashid.decode(id)
+        id = id[0]
+    except:
+        raise Http404
     voter_details = get_object_or_404(AwardVotePurchase, id=id)
     return render(request, "award_voting.html",{"voter_details":voter_details,"paykey":settings.PAYSTACKPUBKEY})
 

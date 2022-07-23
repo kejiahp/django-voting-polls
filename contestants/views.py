@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import get_object_or_404, render,redirect
 from django.urls import reverse
 from django.contrib import messages
@@ -11,8 +12,10 @@ from paystackapi.paystack import Paystack
 from django.views.decorators.http import require_POST
 from voters.models import VotePurchase
 from django.db.models import Q
-
 from voters.models import VotePurchase
+from hashids import Hashids
+
+hashid = Hashids(salt=settings.HASHID_SALT, min_length=8)
 
 def male_contestants(request):
     male_cont = RegisterContestant.objects.filter(gender="Male",is_evicted=False,is_confirmed=True).order_by("-number_of_votes")
@@ -73,8 +76,7 @@ def form_valid(request):
             if email != "" or phonenumber !="":
                 register_email = RegistrationPurchase.objects.create(email=email,phonenumber=phonenumber)
                 register_email.save()
-                object_id = register_email.id
-                print(object_id)
+                object_id = hashid.encode(register_email.id)
 
                 return redirect(reverse("valid_post",args=(object_id,)))
             else:
@@ -84,7 +86,12 @@ def form_valid(request):
            return redirect('home')
 
 def form_valid_post(request,id):
-    register_email = get_object_or_404(RegistrationPurchase,id=id)
+    try:
+        id = hashid.decode(id)
+        id = id[0]
+    except:
+        raise Http404
+    register_email = get_object_or_404(RegistrationPurchase,id=id,verified=False,completed=False)
     context = {
             "register_email":register_email,
             "paykey": settings.PAYSTACKPUBKEY,
@@ -154,13 +161,9 @@ def verify_trans(request, ref_num):
 def processcomplete(request):
     return render(request,"processcomplete.html")
 
-def awards(request):
-    return render(request, "awards.html")
-
 def jointhegroup(request,ref):
-    if RegistrationPurchase.objects.filter(ref=ref, verified=True,completed=True).exists():
-        if RegisterContestant.objects.filter(refnum=ref ,is_evicted=False,is_confirmed=False).exists():
-            return render(request, "jointhegroup.html")
+    if RegistrationPurchase.objects.filter(ref=ref, verified=True,completed=True).exists() and RegisterContestant.objects.filter(refnum=ref ,is_evicted=False,is_confirmed=False).exists():
+        return render(request, "jointhegroup.html")
     else:
         messages.error("Sorry, you are not eligible to join the group. Please contact Customer Care.(Link in footer of the page)")
         return redirect('processcomplete')

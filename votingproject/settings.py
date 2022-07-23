@@ -31,6 +31,8 @@ DEBUG = (os.environ.get("DEBUG_VALUE") == 'True')
 
 ALLOWED_HOSTS = ['*']
 
+HASHID_SALT = 'raveuniversals hash salt'
+
 
 # Application definition
 
@@ -148,6 +150,7 @@ PAYSTACK_SECRET_KEY = os.environ.get("PAYSTACKSCRTKEY")
 
 MEDIA_ROOT = os.path.join(BASE_DIR,"media/")
 MEDIA_URL = '/media/'
+
 
 
 django_heroku.settings(locals())

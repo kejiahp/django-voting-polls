@@ -1,12 +1,22 @@
 {% extends 'navbar_temp.html' %}
 {% block content %}
-<div class="container con-with-us text-center mt-4">
-  <h5 class="mb-4 mt-4">After Purchasing form and registeration, you will receive a group invite link please ensure you join the group through the link provided.</h5>
-    <p class="">Email: {{register_email.email}}</p>
-    <p class="">Phone Number: {{ register_email.phonenumber }}</p>
-    <p class="text-warning">Reference Number: {{register_email.ref}}</p>
-    <h3 class="text-danger con-with-us">Please copy,save or screenshot the reference number, so as to resolve transactions issues that may appear</h3>
-    <button class="btn btn-success mt-3" type="button" onclick="payWithPaystack()">PROCEED</button>
+<div class="container con-with-us  mt-4">
+
+  <div class="card  text-dark mt-4 mb-4">
+    <h4 class="card-header">
+        PAYMENT DETAILS
+    </h4>
+    <div class="card-body">
+      <h5 class="card-title">Note: After Purchasing and registration of the form, you will receive a group invite link please ensure you join the group through the link provided.</h5>
+      <p class="card-text mt-4">Email: {{register_email.email}}</p>
+      <p class="card-text mt-4">Phone Number: {{ register_email.phonenumber }}</p>
+      <h5 class="text-danger con-with-us">Please, kindly copy, save or take a screenshot the reference number and other details, so as to resolve transactions issues if they may occur.</h5>
+      <p class="card-text">Reference Number: {{register_email.ref}}</p>
+      <button class="btn btn-dark mt-3" type="button" onclick="payWithPaystack()">PROCEED</button>
+    </div>
+</div>
+
+    
 </div>
 {% endblock content %}
 {% block scriptholder %}
