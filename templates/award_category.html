@@ -23,7 +23,7 @@
                 {% endfor %}
             </ul>
          </div>
-
+{% if categories %}
     {% for category in categories %}
         <div class="category">
             <h3 class="mt-5 mb-5" id='{{ category.name }}'>{{ category.name }}</h3>
@@ -48,7 +48,12 @@
                     <p class="text-center text-warning"><small>Sorry, there are currently no contestants in this category</small></p>
                 {% endif %}
             </div>
-        </div>
+    </div>
     {% endfor %}
+
+{% else %}
+         <h4>Categories are not currently available</h4>
+{% endif %}
+
 </div>
 {% endblock content %}
