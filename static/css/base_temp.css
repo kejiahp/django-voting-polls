@@ -61,13 +61,18 @@
   height: 100vh;
 }
 
-.dropdown-menu {
-  max-height: 280px;
-  overflow-y: auto;
-}
 @media (min-width:200px) {
-  .dropdown-menu {
+  .categ-dropdown {
     max-height: 280px;
     overflow-y: auto;
   }
+}
+.foot-icon-links{
+  text-decoration: none;
+}
+.home-page-cont{
+  height: 100%;
+}
+.home-page-text{
+  font-size: 18px;
 }

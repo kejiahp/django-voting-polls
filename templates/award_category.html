@@ -2,9 +2,9 @@
 {% load static %}
 {% block content %}
 
-<div class="container-fluid text-center">
+<div class="container-fluid text-center mt-5">
 
-        <form action="{% url 'category-search' %}" method="POST" class="mt-4 ms-5 me-5">
+        <form action="{% url 'category-search' %}" method="POST" class="mt-5 ms-5 me-5">
                 {% csrf_token %}
             <div class="form-group d-md-flex">
                 <input type="text" name="category-search" class="form-control" placeholder="SEARCH FOR CATEGORY">
@@ -17,7 +17,7 @@
                Award Categories 
                <span class = "caret"></span>
             </button>
-            <ul class = "dropdown-menu" role = "menu">
+            <ul class = "dropdown-menu categ-dropdown" role = "menu">
                 {% for category in categories %}
                 <li><a class="dropdow-cat-links " href = "#{{ category.name }}">{{ category.name }}</a></li>
                 {% endfor %}

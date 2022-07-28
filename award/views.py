@@ -10,6 +10,9 @@ from hashids import Hashids
 
 hashid = Hashids(salt=settings.HASHID_SALT, min_length=8)
 
+def award(request):
+    return render(request, 'award.html')
+
 def award_categories(request):
     categories = AwardsCategory.objects.all()
     context = {

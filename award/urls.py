@@ -1,6 +1,7 @@
 from django.urls import path
-from award.views import award_categories,search_category,award_vote_page,award_vote_valid,award_vote_paystack,verify_vote
+from award.views import award_categories,search_category,award_vote_page,award_vote_valid,award_vote_paystack,verify_vote,award
 urlpatterns = [
+    path('',award,name='award-landing'),
     path('awardscategory/',award_categories,name="award-categories"),
     path('category-search/',search_category,name="category-search"),
     path('award-vote/<int:id>/',award_vote_page,name='award-vote'),

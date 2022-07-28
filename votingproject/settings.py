@@ -31,7 +31,7 @@ DEBUG = (os.environ.get("DEBUG_VALUE") == 'True')
 
 ALLOWED_HOSTS = ['*']
 
-HASHID_SALT = 'raveuniversals hash salt'
+HASHID_SALT = os.environ.get('HASHID_SALT')
 
 
 # Application definition
