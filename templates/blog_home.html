@@ -1,17 +1,17 @@
 {% extends 'navbar_temp.html' %}
 {% block content %}
-<div class="container">
+
     <h1 class="text-center mb-5">Our Post's</h1>
-    <div class="container-fluid ps-md-5 pe-md-5 row gy-5 ps-5">
+    <div class="container-fluid ps-md-5 pe-5 ps-5 grid-rows">
     {% if posts %}
     {% for cont in posts %}
 
-    <div class = "col-lg-4 col-md-6 d-flex align-items-stretch text-dark">
+    <div class = "const__card">
         <div class="card border-0">
-            <div class="card-img-top">
-                <img class="w-100" src="{{ cont.image.url }}" alt="Card image cap">
+            <div class="const__imageHolder">
+                <img class="const__img" src="{{ cont.image.url }}" alt="Card image cap">
             </div>
-        <div class="card-body" >
+        <div class="const__textArea" >
             <h4 class="card-title mb-2 ">{{ cont.title }}</h4>
             <p class="card-text">By {{ cont.author }} - {{ cont.date_created|date }}</p>
             <div class="text-muted mt-3 paragraph" style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3;">
@@ -27,7 +27,6 @@
     <h1 class="text-center">No Post's</h1>
     {% endif %}
     </div>
-</div>
 <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
 {% endblock content %}
 

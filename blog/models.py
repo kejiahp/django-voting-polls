@@ -18,9 +18,9 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self,*args,**kwargs):
-        super().save(*args, **kwargs)
-        img = Image.open(self.image.path)
-        if img.height > 120 or img.width > 120:
-            img = img.resize((800,800), Image.ANTIALIAS)
-            img.save(self.image.path)
+    # def save(self,*args,**kwargs):
+    #     super().save(*args, **kwargs)
+    #     img = Image.open(self.image.path)
+    #     if img.height > 120 or img.width > 120:
+    #         img = img.resize((800,800), Image.ANTIALIAS)
+    #         img.save(self.image.path)

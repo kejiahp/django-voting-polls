@@ -3,32 +3,40 @@
 {% load humanize %}
 {% block content %}
 <h1 class="text-center mt-2 mb-5 text-warning">Male Contestants</h1>
-<div class="container-fluid ps-md-5 pe-md-5 row gy-5 ps-5">
+{% if male_cont %}
+  <form class="container-fluid ps-md-5 pe-5 ps-5" action="{% url 'search-contest' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group mb-4">
+        <input type="text" name="cont_search" class="form-control" placeholder="Search By Name" required>
+        <button type="submit" class="btn btn-warning mt-3 mb-3">Search</button>
+      </div>
+  </form>
+{% endif %}
+
+<div class="container-fluid ps-md-5 pe-5 ps-5 grid-rows">
     {% if male_cont %}
-    <form action="{% url 'search-contest' %}" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            <input type="text" name="cont_search" class="form-control" placeholder="Search By Name" required>
-            <button type="submit" class="btn btn-warning mt-3 mb-3">Search</button>
+      {% for cont in male_cont %}
+        <div class="const__card">
+          <div class="const__imageHolder">
+            <img class="const__img" alt="" src="{{ cont.image1.url }}"/>
+          </div>
+          <div class="const__textArea">
+            <h5>{{ cont.fullname }}</h5>
+            <p class="const__subHeader" style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3;">PRT Project Title: {{ cont.tell_us|title }}</p>
+            <p class="const__subHeader">No of current Votes: {{ cont.number_of_votes|intcomma }}</p>
+            <div class="const__voteBtnHolder">
+              <a href="{% url 'vote' cont.id %}" class="const__voteBtn">VOTE</a>
+            </div>
+          </div>
         </div>
-    </form>
-    {% for cont in male_cont %}
-    <div class = "col-lg-4 col-md-6 d-flex align-items-stretch text-dark">
-        <div class="card border-0">
-        <img class="card-img-top" src="{{ cont.image1.url }}" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title mb-2">{{ cont.fullname }}</h5>
-            <p class="card-text">PRT Project Title: {{ cont.tell_us|title }}</p>
-            <p class="card-text">No of current Votes: {{ cont.number_of_votes|intcomma }}</p>
-            <a href="{% url 'vote' cont.id %}" class="btn btn-warning">VOTE</a>
-        </div>
-        </div>
-    </div>
-    {% endfor %}
-    {% else %}
-    <h1 class="text-center">No Contestants present</h1>
-    <p class="text-center"><a href="{% url 'buyform' %}" class="btn btn-warning">APPLY</a></p>
+      {% endfor %}  
+      {% else %}
+      <div class="unavailable">
+        <h1 class="text-center">No Contestants present</h1>
+        <p class="text-center"><a href="{% url 'buyform' %}" class="btn btn-warning">APPLY</a></p>
+      </div>
     {% endif %}
+
 </div>
 
 <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>

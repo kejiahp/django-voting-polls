@@ -25,34 +25,34 @@
          </div>
 {% if categories %}
     {% for category in categories %}
-        <div class="category">
-            <h3 class="mt-5 mb-5" id='{{ category.name }}'>{{ category.name }}</h3>
-            <div class="container-fluid ps-md-5 pe-md-5 row gy-5 ps-5">
-                {% if category.awardscontestant_set.all %}
-                    {% for contestant in category.awardscontestant_set.all %}
-                        <div class = "col-lg-4 col-md-6 d-flex align-items-stretch text-dark">
-                            <div class="card border-0">
-                                <div class="card-img-top">
-                                    <img class="w-100" src="{{ contestant.image1.url }}" alt="Card image cap">
-                                </div>
-                            <div class="card-body text-center">
-                                <h4 class="card-title mb-2 ">{{contestant.fullname}}</h4>
-                                <p class="card-text">{{ contestant.tell_us }}</p>
-                                <p class="card-text">No of current Votes: {{ contestant.number_of_votes }}</p>
-                                <a href="{% url 'award-vote' contestant.id %}" class="btn btn-warning">View Contest</a>
+    <div class="category">
+        <h3 class="text-center mt-5 mb-5" id='{{ category.name }}'>{{ category.name }}</h3>
+        <div class="container-fluid ps-md-5 pe-5 ps-5 grid-rows">
+            {% if category.awardscontestant_set.all %}
+                {% for contestant in category.awardscontestant_set.all %}
+                        <div class="const__card">
+                            <div class="const__imageHolder">
+                                <img class="const__img" src="{{ contestant.image1.url }}" alt="Card image cap">
                             </div>
+                            <div class="const__textArea">
+                                <h4 class="">{{contestant.fullname}}</h4>
+                                <p class="const__subHeader">{{ contestant.tell_us }}</p>
+                                <p class="const__subHeader">No of current Votes: {{ contestant.number_of_votes }}</p>
+                                <div class="const__voteBtnHolder">
+                                    <a href="{% url 'award-vote' contestant.id %}" class="const__voteBtn">View Contest</a>
+                                </div>
                             </div>
                         </div>
-                    {% endfor %}
-                    {% else %}
-                    <p class="text-center text-warning"><small>Sorry, there are currently no contestants in this category</small></p>
-                {% endif %}
-            </div>
+                {% endfor %}
+                {% else %}
+                <p class="text-center text-warning unavailable"><small>Sorry, there are currently no contestants in this category</small></p>
+            {% endif %}
+        </div>
     </div>
     {% endfor %}
 
 {% else %}
-         <h4 class="mt-4 mb-4">Categories are not currently available</h4>
+         <h4 class="mt-4 mb-4 unavailable">Categories are not currently available</h4>
 {% endif %}
 
 <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>

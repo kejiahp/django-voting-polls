@@ -1,23 +1,25 @@
 {% extends 'navbar_temp.html' %}
 {% load humanize %}
 {% block content %}
-<div class="container-fluid ps-md-5 pe-md-5 row gy-5 ">
+<div class="container-fluid ps-md-5 pe-5 ps-5 grid-rows">
     {% if candidate%}
         {% for cont in candidate%}
-        <div class = "col-lg-4 col-md-6 d-flex align-items-stretch text-dark">
-            <div class="card border-0">
-            <img class="card-img-top" src="{{ cont.image1.url }}" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title mb-2">{{ cont.fullname }}</h5>
-                <p class="card-text">PRT Project Title: {{ cont.tell_us|title }}</p>
-                <p class="card-text">No of current Votes: {{ cont.number_of_votes|intcomma }}</p>
-                <a href="{% url 'vote' cont.id %}" class="btn btn-warning">VOTE</a>
+        <div class = "const__card">
+            <div class="const__imageHolder">
+            <img class="const__img" src="{{ cont.image1.url }}" alt="Card image cap">
+            <div class="const__textArea">
+                <h5 class="">{{ cont.fullname }}</h5>
+                <p class="const__subHeader">PRT Project Title: {{ cont.tell_us|title }}</p>
+                <p class="const__subHeader">No of current Votes: {{ cont.number_of_votes|intcomma }}</p>
+                <div class="const__voteBtnHolder">
+                    <a href="{% url 'vote' cont.id %}" class="const__voteBtn">VOTE</a>
+                  </div>
             </div>
             </div>
         </div>
         {% endfor %}
     {% elif message %}
-        <h3 class="text-center">{{ message }}</h3>
+        <h3 class="unavailable">{{ message }}</h3>
     {% endif %}
 </div>
 {% endblock content %}
