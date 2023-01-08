@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+  font-family: "Urbanist", sans-serif;
+}
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+}
+.pg-title{
+  text-decoration: none;
+}
+.header-relate{
+  position: relative;
+}
+.deligate-slider{
+  position: absolute;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 10px;
+  word-wrap: break-word;
+  height: 30%;
+}
+.deligate-slider p a{
+  text-decoration: none;
+}
+.con-with-us{
+  word-wrap: break-word;
+}
+.share-post{
+  font-size: 25px;
+}
+.blog-post{
+  height: 70vh;
+}
+.blog-post img{
+  object-fit: cover;
+  height: 100%;
+  vertical-align:top;
+}
+.copy-button{
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 5px;
+}
+.copy-text:hover{
+  cursor:pointer;
+}
+.copy-suc{
+  color: green; 
+  display: none;
+}
+.body-height{
+  height: 100vh;
+}
+
+@media (min-width:200px) {
+  .categ-dropdown {
+    max-height: 280px;
+    overflow-y: auto;
+  }
+}
+.foot-icon-links{
+  text-decoration: none;
+}
+.home-page-cont{
+  height: 100%;
+}
+.home-page-text{
+  font-size: 18px;
+}
+
+#myBtn {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: #ffc107; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 10px; /* Some padding */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 15px; /* Increase font size */
+}
+
+#myBtn:hover {
+  background-color: #555; /* Add a dark-grey background on hover */
+}
+
+.const__card{
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  color: black;
+  overflow: hidden;
+}
+.const__imageHolder{
+  width: 100%;
+  height: 300px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.const__img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.const__textArea{
+  padding: 20px 10px;
+}
+.const__voteBtnHolder{
+  margin: 40px 0px 20px 0px;
+}
+.const__subHeader{
+  margin: 10px 0px;
+  font-size: 14px;
+}
+.const__voteBtn{
+  padding: 10px;
+  background-color: #ffc107;
+  text-decoration: none;
+  border-radius: 5px;
+  color: black;
+}
+.unavailable{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+.grid-rows{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+@media screen and (max-width:550px){
+  .const__card{
+    width: 100%;
+  }
+  .grid-rows{
+    justify-content: center;
+  }
+}
+@media screen and (min-width:551px){
+  .const__card{
+    width: calc((100% - 80px) / 2);
+  }
+  .grid-rows{
+    justify-content: center;
+  }
+}
+@media screen and (min-width:992px){
+  .const__card{
+    width: calc((100% - 80px) / 4);
+  }
+  .grid-rows{
+    justify-content: flex-start;
+  }
+}
+@media screen and (min-width:1200px){
+  .const__card{
+    width: calc((100% - 80px) / 5);
+  }
+}
