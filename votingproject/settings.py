@@ -84,10 +84,19 @@ WSGI_APPLICATION = 'votingproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+CLEVER_VOTING_PG_PASSWORD= os.environ.get("CLEVER_VOTING_PG_PASSWORD")
+CLEVER_VOTING_PG_PORT= os.environ.get("CLEVER_VOTING_PG_PORT")
+CLEVER_VOTING_PG_HOST= os.environ.get("CLEVER_VOTING_PG_HOST")
+CLEVER_VOTING_PG_USER= os.environ.get("CLEVER_VOTING_PG_USER")
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': CLEVER_VOTING_PG_USER,
+        'HOST': CLEVER_VOTING_PG_HOST,
+        'PASSWORD': CLEVER_VOTING_PG_PASSWORD,
+        'PORT': CLEVER_VOTING_PG_PORT,
     }
 }
 
