@@ -7,3 +7,5 @@ from blog.models import Blog
 
 class BlogAdmin(admin.ModelAdmin):
     prepopulated_fields= {'slug':('title',)}
+    search_fields = ['title']
+    list_filter = ['author']

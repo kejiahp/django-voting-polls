@@ -32,17 +32,17 @@ class AwardsContestant(models.Model):
     def __str__(self):
         return f"{self.firstname}|{self.id}"
 
-    def save(self,*args, **kwargs):
-        super().save(*args, **kwargs)
-        img = Image.open(self.image1.path)
-        if img.height > 120 or img.width > 120:
-            img = img.resize((800,800), Image.ANTIALIAS)
-            img.save(self.image1.path)
+    # def save(self,*args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     img = Image.open(self.image1.path)
+    #     if img.height > 120 or img.width > 120:
+    #         img = img.resize((800,800), Image.ANTIALIAS)
+    #         img.save(self.image1.path)
 
-        img2 = Image.open(self.image2.path)
-        if img2.height > 120 or img2.width > 120:
-            img2 = img2.resize((800,800), Image.ANTIALIAS)
-            img2.save(self.image2.path)
+    #     img2 = Image.open(self.image2.path)
+    #     if img2.height > 120 or img2.width > 120:
+    #         img2 = img2.resize((800,800), Image.ANTIALIAS)
+    #         img2.save(self.image2.path)
 
     @property
     def fullname(self):

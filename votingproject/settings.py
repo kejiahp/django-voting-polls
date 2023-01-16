@@ -29,7 +29,7 @@ SECRET_KEY= os.environ.get("CLEVER_VOTING")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get("DEBUG_VALUE") == 'True')
 
-CSRF_TRUSTED_ORIGINS = os.environ.get("CLEVER_VOTING_CSRF_TRUSTED_ORIGINS").split(",") 
+# CSRF_TRUSTED_ORIGINS = os.environ.get("CLEVER_VOTING_CSRF_TRUSTED_ORIGINS").split(",") 
 
 ALLOWED_HOSTS = os.environ.get("CLEVER_VOTING_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",") 
 
