@@ -2,10 +2,11 @@ from django.db import models
 from PIL import Image
 from django.utils import timezone
 from django.template.defaultfilters import slugify
+from cloudinary.models import CloudinaryField
 
 class Blog(models.Model):
     title = models.CharField(max_length=100,default="No Title")
-    image = models.ImageField(default="defaultuser.jpg", upload_to="blogs/%Y/%m/%d")
+    image = CloudinaryField("image")
     author = models.CharField(max_length=50, default="No Author")
     description = models.TextField(default="No Description")
     is_displayed = models.BooleanField(default=True)

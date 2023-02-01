@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 from django.contrib import messages
 import django_heroku 
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -35,6 +36,14 @@ ALLOWED_HOSTS = os.environ.get("CLEVER_VOTING_ALLOWED_HOSTS", "127.0.0.1,localho
 
 HASHID_SALT = os.environ.get('HASHID_SALT')
 
+#clodinary setup
+#SET ENVIRONMENT VARIABLES
+cloudinary.config(
+  cloud_name = os.environ.get('CLOUDINARY_CLOUD_NAME'), 
+  api_key = os.environ.get('CLOUDINARY_API_KEY'), 
+  api_secret = os.environ.get('CLOUDINARY_API_SECRET'), 
+  secure = os.environ.get('CLOUDINARY_SECURE')
+)
 
 # Application definition
 
@@ -50,6 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'blog',
     'award',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [

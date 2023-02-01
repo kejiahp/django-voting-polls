@@ -2,6 +2,7 @@ import secrets
 from django.db import models
 from django.utils import timezone
 from PIL import Image
+from cloudinary.models import CloudinaryField
 
 class AwardsCategory(models.Model):
     name = models.CharField(max_length=150)
@@ -22,8 +23,8 @@ class AwardsContestant(models.Model):
     tell_us = models.TextField(default="I WANT TO WIN")
     email = models.EmailField()
     phonenumber = models.CharField(max_length=20)
-    image1 = models.ImageField(default="defaultuser.jpg", upload_to="award/contestant/%Y/%m/%d")
-    image2 = models.ImageField(default="defaultuser.jpg", upload_to="award/contestant/%Y/%m/%d")
+    image1 = CloudinaryField("image")
+    image2 = CloudinaryField("image")
     gender = models.CharField(max_length=10)
     number_of_votes = models.IntegerField(default=0)
     is_evicted = models.BooleanField(default=False)
