@@ -59,4 +59,9 @@ class RegisterContestant(models.Model):
             
     @property
     def fullname(self):
-        return f"{self.lastname} {self.firstname}"
+        if self.lastname == None:
+            return f"{self.firstname}"
+        if self.firstname == None:
+            return f"{self.lastname}"
+        else:
+            return f"{self.lastname} {self.firstname}"
