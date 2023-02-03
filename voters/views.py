@@ -11,7 +11,7 @@ from hashids import Hashids
 
 hashid = Hashids(salt=settings.HASHID_SALT, min_length=8)
 
-amt_per_voter = "100"
+amt_per_voter = "50"
 
 def home(request):
     return render(request, "home_temp.html")

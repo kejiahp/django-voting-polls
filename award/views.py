@@ -36,7 +36,7 @@ def search_category(request):
 
 
 #Validation Process for the Awards Voting
-amt_per_voter = "200"
+amt_per_voter = "50"
 
 def award_vote_page(request,id):
     contestant = get_object_or_404(AwardsContestant, id=id)
