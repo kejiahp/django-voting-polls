@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import urllib
 from award.models import AwardsContestant
-from . models import AwardVotingWebhookModel
+from . models import AwardVotingWebhookModel, WebhookTestModel
 from django.shortcuts import get_object_or_404, render
 import hmac
 import os
@@ -19,17 +19,26 @@ def payment_home(request):
     return render(request, "paywebhooktest1.html")
 
 
-@require_POST
 @csrf_exempt
-def payment_test(request):
-    paybytes = urllib.parse.urlencode(request.body).encode('utf8')
-    sign = hmac.new(secret, paybytes, hashlib.sha512).hexdigest()
-
-    if sign == request.headers["x-paystack-signature"]:
-        with open("./webhookData.txt", 'w') as handler:
-            handler.write(request.body)
-
+def payment_test(request, pk=None):
+    response = json.loads(request.body)
+    if response.get('event') == 'charge.success':
+        vote = WebhookTestModel(ref=response['data']['reference'])
+        vote.save()
     return HttpResponse(status=200)
+
+    # paybytes = urllib.parse.urlencode(request.body).encode('utf8')
+    # sign = hmac.new(secret, paybytes, hashlib.sha512).hexdigest()
+
+    # if sign == request.headers["x-paystack-signature"]:
+    #     response = json.loads(request.body)
+    #     if response.get('event') == 'charge.success':
+    #         vote = WebhookTestModel(ref=response['data']['reference'])
+    #         vote.save()
+    # with open("./webhookData.txt", 'w') as handler:
+    #     handler.write(request.body)
+
+    # return HttpResponse(status=200)
 
 
 @csrf_exempt

@@ -4,6 +4,13 @@ from django.utils import timezone
 from award.models import AwardsContestant
 
 
+class WebhookTestModel(models.Model):
+    ref = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f"Reference {self.ref}"
+
+
 class AwardVotingWebhookModel(models.Model):
     payment_state_choice = (
         ('success', 'success'),
