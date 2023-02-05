@@ -24,5 +24,5 @@ urlpatterns = [
     path('contestants/', include('contestants.urls')),
     path('blog/', include('blog.urls')),
     path('award/', include('award.urls')),
-    # path('vote/', include('voters.urls')),
-]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    path('', include('payments.urls'))
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
