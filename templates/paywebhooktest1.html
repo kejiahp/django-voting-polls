@@ -34,7 +34,7 @@
       var paymentForm = document.getElementById("paymentForm");
       paymentForm.addEventListener("submit", payWithPaystack, false);
       function payWithPaystack(e) {
-        e.preventDefault();
+        {% comment %} e.preventDefault(); {% endcomment %}
         var handler = PaystackPop.setup({
           key: "pk_test_033e5753f693b488e9cc345759b02615a5dc937e", // Replace with your public key
           email: document.getElementById("email-address").value,
