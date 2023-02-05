@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404, render
 import hmac
 import os
 
-secret1 = os.environ.get('KEJIAHSSECRET') or ""
+secret1 = os.environ.get('KEJIAHSSECRET')
 
 secret = bytes(secret1, 'utf-8')
 
