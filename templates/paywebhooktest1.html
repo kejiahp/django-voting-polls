@@ -34,13 +34,13 @@
       var paymentForm = document.getElementById("paymentForm");
       paymentForm.addEventListener("submit", payWithPaystack, false);
       function payWithPaystack(e) {
-        {% comment %} e.preventDefault(); {% endcomment %}
+        const ref = Date.now();
         var handler = PaystackPop.setup({
           key: "pk_test_033e5753f693b488e9cc345759b02615a5dc937e", // Replace with your public key
           email: document.getElementById("email-address").value,
           amount: document.getElementById("amount").value * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
           currency: "NGN", // Use GHS for Ghana Cedis or USD for US Dollars
-          ref: "132546578686", // Replace with a reference you generated
+          ref, // Replace with a reference you generated
           callback: function (response) {
             //this happens after the payment is completed successfully
             var reference = response.reference;
