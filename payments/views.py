@@ -21,21 +21,10 @@ def payment_home(request):
 
 @csrf_exempt
 def payment_test(request, pk=None):
-    # response = json.loads(request.body)
-    # if response.get('event') == 'charge.success':
-    #     vote = WebhookTestModel(ref=response['data']['reference'])
-    #     vote.save()
-    # return HttpResponse(status=200)
-
     response = json.loads(request.body)
-    paybytes = urllib.parse.urlencode(request.body).encode('utf8')
-    sign = hmac.new(secret, paybytes, hashlib.sha512).hexdigest()
-
-    if sign == request.headers["x-paystack-signature"]:
-        if response.get('event') == 'charge.success':
-            vote = WebhookTestModel(ref=response['data']['reference'])
-            vote.save()
-
+    if response.get('event') == 'charge.success':
+        vote = WebhookTestModel(ref=response['data']['reference'])
+        vote.save()
     return HttpResponse(status=200)
 
 
