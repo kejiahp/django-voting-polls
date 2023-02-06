@@ -29,7 +29,7 @@ class NewVotingWebhookModel(models.Model):
     ref = models.CharField(max_length=200)
     email = models.EmailField()
     number_of_votes = models.IntegerField(default=0)
-    contestant_id = models.CharField(max_length=5)
+    contestant_id = models.IntegerField()
     amount = models.DecimalField(max_digits=7, decimal_places=2)
     verified = models.BooleanField(default=False)
     order_paid = models.BooleanField(default=False)

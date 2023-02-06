@@ -38,7 +38,7 @@ def vote_pg_valid(request):
         if amount == amt_per_voter:
             cont = RegisterContestant.objects.get(id=cont_id)
             voter = NewVotingWebhookModel(
-                email=email, number_of_votes=number_of_votes, contestant_id=cont, amount=amount, type_of_vote="pageant-vote")
+                email=email, number_of_votes=number_of_votes, contestant_id=cont.id, amount=amount, type_of_vote="pageant-vote")
             voter.save()
             vid = voter.id
             # encoding the id of the VotePurchase

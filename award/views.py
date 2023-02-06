@@ -61,7 +61,7 @@ def award_vote_valid(request):
         if amount == amt_per_voter:
             cont = AwardsContestant.objects.get(id=cont_id)
             voter = NewVotingWebhookModel(
-                email=email, number_of_votes=number_of_votes, contestant_id=cont, amount=amount, type_of_vote="awards-vote")
+                email=email, number_of_votes=number_of_votes, contestant_id=cont.id, amount=amount, type_of_vote="awards-vote")
             voter.save()
             vid = voter.id
             vid = hashid.encode(vid)
