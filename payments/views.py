@@ -2,7 +2,8 @@ import json
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from award.models import AwardsContestant
-from . models import AwardVotingWebhookModel, WebhookTestModel
+from contestants.models import RegisterContestant
+from . models import NewVotingWebhookModel, WebhookTestModel
 from django.shortcuts import get_object_or_404, render
 
 
@@ -30,22 +31,42 @@ def payment_webhook(request, pk=None):
 
     if response.get('event') == 'charge.success':
         reference_num = response['data']['reference']
-        voter = get_object_or_404(AwardVotingWebhookModel, ref=reference_num)
+        voter = get_object_or_404(NewVotingWebhookModel, ref=reference_num)
         voter_paid = voter.total_price
         voter_paid = int(float(voter_paid))*100
 
         if response['data']['status'] == 'success' and response['data']['amount'] == voter_paid:
-            voter.payment_state = "success"
-            voter.verified = True
-            voter.order_paid = True
-            voter.save()
             voters_votes_no = voter.number_of_votes
-            cont_voted = get_object_or_404(
-                AwardsContestant, id=voter.contestant_id.id)
-            current_votes = cont_voted.number_of_votes
-            new_votes = current_votes + voters_votes_no
-            cont_voted.number_of_votes = new_votes
-            cont_voted.save()
+
+            if voter.type_of_vote == "pageant-vote":
+                voter.payment_state = "success"
+                voter.verified = True
+                voter.order_paid = True
+                voter.save()
+                cont_voted = get_object_or_404(
+                    RegisterContestant, id=voter.contestant_id)
+                current_votes = cont_voted.number_of_votes
+                new_votes = current_votes + voters_votes_no
+                cont_voted.number_of_votes = new_votes
+                cont_voted.save()
+
+            elif voter.type_of_vote == "awards-vote":
+                voter.payment_state = "success"
+                voter.verified = True
+                voter.order_paid = True
+                voter.save()
+                cont_voted = get_object_or_404(
+                    AwardsContestant, id=voter.contestant_id)
+                current_votes = cont_voted.number_of_votes
+                new_votes = current_votes + voters_votes_no
+                cont_voted.number_of_votes = new_votes
+                cont_voted.save()
+
+            else:
+                voter.payment_state = "success"
+                voter.verified = False
+                voter.order_paid = True
+                voter.save()
 
         elif response['data']['status'] == 'abandoned' or response['data']['amount'] != voter_paid:
             voter.payment_state = "failed"

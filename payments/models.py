@@ -16,7 +16,7 @@ class WebhookTestModel(models.Model):
         return f"Reference {self.ref}"
 
 
-class AwardVotingWebhookModel(models.Model):
+class NewVotingWebhookModel(models.Model):
     payment_state_choice = (
         ('success', 'success'),
         ('failed', 'failed'),
@@ -29,8 +29,7 @@ class AwardVotingWebhookModel(models.Model):
     ref = models.CharField(max_length=200)
     email = models.EmailField()
     number_of_votes = models.IntegerField(default=0)
-    contestant_id = models.ForeignKey(
-        AwardsContestant, on_delete=models.SET_NULL, null=True)
+    contestant_id = models.CharField(max_length=5)
     amount = models.DecimalField(max_digits=7, decimal_places=2)
     verified = models.BooleanField(default=False)
     order_paid = models.BooleanField(default=False)
@@ -54,7 +53,7 @@ class AwardVotingWebhookModel(models.Model):
     def save(self, *args, **kwargs):
         while not self.ref:
             ref = secrets.token_urlsafe(50)
-            object_with_similar_ref = AwardVotingWebhookModel.objects.filter(
+            object_with_similar_ref = NewVotingWebhookModel.objects.filter(
                 ref=ref)
             if not object_with_similar_ref:
                 self.ref = ref
