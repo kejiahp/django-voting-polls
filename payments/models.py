@@ -24,7 +24,7 @@ class AwardVotingWebhookModel(models.Model):
     )
 
     vote_types = (('pageant-registration', 'pageant-registration'),
-                  ('pageant-vote', 'pageant-vote'), ('awards-vote', 'awards-vote'))
+                  ('pageant-vote', 'pageant-vote'), ('awards-vote', 'awards-vote'), ('undefined', 'undefined'))
 
     ref = models.CharField(max_length=200)
     email = models.EmailField()
