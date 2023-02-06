@@ -27,10 +27,10 @@ class RegistrationPurchase(models.Model):
 
 
 class RegisterContestant(models.Model):
-    refnum = models.CharField(max_length=200)
+    refnum = models.CharField(max_length=200, blank=True, null=True)
     firstname = models.CharField(max_length=30, blank=False)
     lastname = models.CharField(max_length=30, blank=True, null=True)
-    instagram_handle = models.CharField(max_length=30, blank=False, null=True)
+    instagram_handle = models.CharField(max_length=30, blank=True, null=True)
     tell_us = models.TextField(default="I WANT TO WIN")
     email = models.EmailField(blank=True, null=True)
     phonenumber = models.CharField(max_length=20, blank=True, null=True)
