@@ -79,7 +79,9 @@ def award_vote_paystack(request, id):
     except:
         raise Http404
     voter_details = get_object_or_404(NewVotingWebhookModel, id=id)
-    return render(request, "award_voting.html", {"voter_details": voter_details, "paykey": settings.PAYSTACKPUBKEY})
+    contestant_details = get_object_or_404(
+        AwardsContestant, id=voter_details.contestant_id)
+    return render(request, "award_voting.html", {"voter_details": voter_details, "paykey": settings.PAYSTACKPUBKEY, "contestant_details": contestant_details})
 
 
 def verify_vote(request, ref):

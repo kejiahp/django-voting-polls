@@ -7,26 +7,23 @@ cloudinary %} {% block content %}
     >
       <img
         class="card-img-top"
-        src="{{ voter_details.contestant_id.image1.url }}"
+        src="{{ contestant_details.image1.url }}"
         alt="Card image cap"
       />
       <div class="card-body">
-        <h5 class="card-title mb-2">
-          {{ voter_details.contestant_id.fullname }}
-        </h5>
+        <h5 class="card-title mb-2">{{ contestant_details.fullname }}</h5>
         <p class="card-text">
-          PRT Project Title: {{ voter_details.contestant_id.tell_us|title }}
+          PRT Project Title: {{ contestant_details.tell_us|title }}
         </p>
         <p class="card-text">
           Instagram Handle:
           <a
-            href="https://instagram.com/{{voter_details.contestant_id.instagram_handle}}"
-            >{{ voter_details.contestant_id.instagram_handle }}</a
+            href="https://instagram.com/{{contestant_details.instagram_handle}}"
+            >{{ contestant_details.instagram_handle }}</a
           >
         </p>
         <p class="card-text">
-          No of current Votes:
-          {{voter_details.contestant_id.number_of_votes|intcomma }}
+          No of current Votes: {{contestant_details.number_of_votes|intcomma }}
         </p>
       </div>
     </div>
