@@ -56,7 +56,7 @@ def vote_flutter(request, id):
         id = id[0]
     except:
         raise Http404
-    voter_details = get_object_or_404(VotePurchase, id=id)
+    voter_details = get_object_or_404(NewVotingWebhookModel, id=id)
     return render(request, "voting.html", {"voter_details": voter_details, "paykey": settings.PAYSTACKPUBKEY})
 
 
