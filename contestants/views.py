@@ -10,7 +10,7 @@ from award.models import AwardVotePurchase
 from django.conf import settings
 from paystackapi.paystack import Paystack
 from django.views.decorators.http import require_POST
-from payments.models import AwardVotingWebhookModel
+from payments.models import NewVotingWebhookModel
 from voters.models import VotePurchase
 from django.db.models import Q
 from voters.models import VotePurchase
@@ -52,10 +52,10 @@ def webhookPayments(pay, req=request):
     """ This is to validate payments made with the webhook api """
     if pay.verified == True:
         messages.success(
-            req, f"Payment for {pay.type_of_vote} is {pay.payment_state}")
+            req, f"Payment for {pay.type_of_vote}, status: {pay.payment_state}, verified: True")
     else:
         messages.error(
-            req, f"Payment for {pay.type_of_vote} is {pay.payment_state}")
+            req, f"Payment for {pay.type_of_vote}, status: {pay.payment_state}, verified: False")
 
 
 @require_POST
@@ -73,8 +73,8 @@ def purchaseissues_valid(request):
         payment = AwardVotePurchase.objects.get(ref=ref)
         paychecker(payment, request)
         return redirect('purchase-issues')
-    elif AwardVotingWebhookModel.objects.filter(ref=ref).exists():
-        payment = AwardVotingWebhookModel.objects.get(ref=ref)
+    elif NewVotingWebhookModel.objects.filter(ref=ref).exists():
+        payment = NewVotingWebhookModel.objects.get(ref=ref)
         webhookPayments(payment, request)
         return redirect('purchase-issues')
     else:

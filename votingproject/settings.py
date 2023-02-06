@@ -29,8 +29,8 @@ SECRET_KEY = os.environ.get("CLEVER_VOTING")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get("DEBUG_VALUE") == 'True')
 
-CSRF_TRUSTED_ORIGINS = os.environ.get(
-    "CLEVER_VOTING_CSRF_TRUSTED_ORIGINS").split(",")
+# CSRF_TRUSTED_ORIGINS = os.environ.get(
+#     "CLEVER_VOTING_CSRF_TRUSTED_ORIGINS").split(",")
 
 ALLOWED_HOSTS = os.environ.get(
     "CLEVER_VOTING_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
@@ -42,7 +42,8 @@ HASHID_SALT = os.environ.get('HASHID_SALT')
 cloudinary.config(
     cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME'),
     api_key=os.environ.get('CLOUDINARY_API_KEY'),
-    api_secret=os.environ.get('CLOUDINARY_API_SECRET'),
+    api_secret=os.environ.get(
+        'CLOUDINARY_API_SECRET'),
     secure=os.environ.get('CLOUDINARY_SECURE')
 )
 

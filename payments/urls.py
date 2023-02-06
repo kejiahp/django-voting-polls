@@ -3,7 +3,6 @@ from . import views
 
 urlpatterns = [
     path("paymentPath/", views.payment_home, name="pay-home"),
-    path("webhook/", views.payment_webhook, name="webhook"),
-    path("webhook2/", views.payment_test, name="webhook-test"),
+    path("webhook2/", views.payment_webhook, name="webhook"),
     path("vote-pending/", views.vote_pending, name="vote-pending"),
 ]

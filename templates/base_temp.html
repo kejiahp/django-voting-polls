@@ -1,70 +1,124 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
     <title>Rave Universal</title>
 
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
-    <link href="{% static 'css/cover.css' %}" rel="stylesheet">
-    <link href="{% static 'css/base_temp.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static 'images/favicon.ico' %}"
+    />
+    <link href="{% static 'css/cover.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/base_temp.css' %}" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
   </head>
   <body class="d-flex h-100 text-center text-white bg-dark">
-    
-<div class="cover-container d-flex w-100  p-3 mx-auto flex-column">
-  <header class="mb-auto header-relate">
-    <div>
-      <h3 class="float-md-start mb-4"><a class="pg-title text-white" href="{% url 'home' %}">The Rave Universal</a></h3>
-      <nav class="nav nav-masthead justify-content-center float-md-end">
-        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+    <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
+      <header class="mb-auto header-relate">
+        <div>
+          <h3 class="float-md-start mb-4">
+            <a class="pg-title text-white" href="{% url 'home' %}"
+              >The Rave Universal</a
+            >
+          </h3>
+          <nav class="nav nav-masthead justify-content-center float-md-end">
+            <a
+              class="nav-link active"
+              aria-current="page"
+              href="{% url 'home' %}"
+              >Home</a
+            >
 
-        <div class="dropdown show">
-          <a class="nav-link ms-3 me-3 dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Contestants
-          </a>
-        
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="{% url 'male-cont' %}">MALE CONTESTANTS</a>
-            <a class="dropdown-item" href="{% url 'female_cont' %}">FEMALE CONTESTANTS</a>
-          </div>
+            <div class="dropdown show">
+              <a
+                class="nav-link ms-3 me-3 dropdown-toggle"
+                href="#"
+                role="button"
+                id="dropdownMenuLink"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Contestants
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'male-cont' %}"
+                  >MALE CONTESTANTS</a
+                >
+                <a class="dropdown-item" href="{% url 'female_cont' %}"
+                  >FEMALE CONTESTANTS</a
+                >
+              </div>
+            </div>
+
+            <a class="nav-link" href="{% url 'award-landing'%}">Awards</a>
+            <a class="nav-link" href="{% url 'about' %}">About</a>
+
+            <div class="dropdown show">
+              <a
+                class="nav-link ms-3 me-3 dropdown-toggle"
+                href="#"
+                role="button"
+                id="dropdownMenuLink"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                More...
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'purchase-issues' %}"
+                  >Verify Transaction</a
+                >
+                <a class="dropdown-item" href="{% url 'blog-posts' %}">Blogs</a>
+                <a
+                  class="dropdown-item"
+                  target="_blank"
+                  href="https://mega.nz/folder/rOhh0KQR#rsBYgCd_qGF2InKjsCRlBQ"
+                  >Gallery</a
+                >
+              </div>
+            </div>
+          </nav>
         </div>
+      </header>
+      <h1 class="text-center text-warning">
+        SITE IS CURRENTLY UNDER GOING CHANGES
+      </h1>
+      <h3 class="text-center text-warning">
+        PLEASE AVOID MAKING PAYMENTS, OR VOTES
+      </h3>
+      {% block content %} {% endblock %}
 
-        <a class="nav-link" href="{% url 'award-landing'%}">Awards</a>
-        <a class="nav-link" href="{% url 'about' %}">About</a>
-
-        <div class="dropdown show">
-          <a class="nav-link ms-3 me-3 dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            More...
-          </a>
-        
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="{% url 'purchase-issues' %}">Verify Transaction</a>
-            <a class="dropdown-item" href="{% url 'blog-posts' %}">Blogs</a>
-            <a class="dropdown-item" target="_blank" href="https://mega.nz/folder/rOhh0KQR#rsBYgCd_qGF2InKjsCRlBQ">Gallery</a>
-          </div>
-        </div>
-
-      </nav>
+      <footer class="mt-auto mb-1 text-white-50">
+        <p style="font-size: 12px">
+          Designed by
+          <a href="https://wa.me/+2348090872072" class="text-muted">kejiah</a>.
+        </p>
+      </footer>
     </div>
-  </header>
-  {% block content  %}
-  
-  {% endblock  %}
-
-
-  <footer class="mt-auto mb-1 text-white-50">
-    <p style="font-size:12px;">Designed by <a href="https://wa.me/+2348090872072" class="text-muted">kejiah</a>.</p>
-  </footer>
-</div>
-
 
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/base_temp.js' %}"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

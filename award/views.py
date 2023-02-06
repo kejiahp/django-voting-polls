@@ -8,6 +8,8 @@ from django.contrib import messages
 from paystackapi.paystack import Paystack
 from hashids import Hashids
 
+from payments.models import NewVotingWebhookModel
+
 hashid = Hashids(salt=settings.HASHID_SALT, min_length=8)
 
 
@@ -58,8 +60,8 @@ def award_vote_valid(request):
     if email != "" and number_of_votes != "" and amount != "" and cont_id != "":
         if amount == amt_per_voter:
             cont = AwardsContestant.objects.get(id=cont_id)
-            voter = AwardVotePurchase(
-                email=email, number_of_votes=number_of_votes, contestant_id=cont, amount=amount)
+            voter = NewVotingWebhookModel(
+                email=email, number_of_votes=number_of_votes, contestant_id=cont, amount=amount, type_of_vote="awards-vote")
             voter.save()
             vid = voter.id
             vid = hashid.encode(vid)

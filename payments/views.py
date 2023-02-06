@@ -44,7 +44,7 @@ def payment_webhook(request, pk=None):
                 voter.order_paid = True
                 voter.save()
                 cont_voted = get_object_or_404(
-                    RegisterContestant, id=voter.contestant_id)
+                    RegisterContestant, id=int(voter.contestant_id))
                 current_votes = cont_voted.number_of_votes
                 new_votes = current_votes + voters_votes_no
                 cont_voted.number_of_votes = new_votes
@@ -56,7 +56,7 @@ def payment_webhook(request, pk=None):
                 voter.order_paid = True
                 voter.save()
                 cont_voted = get_object_or_404(
-                    AwardsContestant, id=voter.contestant_id)
+                    AwardsContestant, id=int(voter.contestant_id))
                 current_votes = cont_voted.number_of_votes
                 new_votes = current_votes + voters_votes_no
                 cont_voted.number_of_votes = new_votes
