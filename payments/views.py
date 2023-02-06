@@ -1,29 +1,25 @@
-import hashlib
 import json
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
-import urllib
 from award.models import AwardsContestant
 from . models import AwardVotingWebhookModel, WebhookTestModel
 from django.shortcuts import get_object_or_404, render
-import hmac
-import os
-
-secret1 = os.environ.get('KEJIAHSSECRET')
-
-secret = bytes(secret1, 'utf-8')
 
 
 def payment_home(request):
     return render(request, "paywebhooktest1.html")
 
 
+def vote_pending(request):
+    return render(request, "vote_pending.html")
+
+
 @csrf_exempt
 def payment_test(request, pk=None):
     response = json.loads(request.body)
     if response.get('event') == 'charge.success':
-        vote = WebhookTestModel(ref=response['data']['reference'])
+        vote = WebhookTestModel(
+            ref=response['data']['reference'], payment_type=response['data']['metadata']['order_type'])
         vote.save()
     return HttpResponse(status=200)
 

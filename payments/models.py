@@ -5,7 +5,12 @@ from award.models import AwardsContestant
 
 
 class WebhookTestModel(models.Model):
+    vote_types = (('pageant-registration', 'pageant-registration'),
+                  ('pageant-vote', 'pageant-vote'), ('awards-vote', 'awards-vote'), ('undefined', 'undefined'))
+
     ref = models.CharField(max_length=200)
+    payment_type = models.CharField(
+        choices=vote_types, max_length=30, default='undefined')
 
     def __str__(self):
         return f"Reference {self.ref}"
@@ -18,6 +23,9 @@ class AwardVotingWebhookModel(models.Model):
         ('pending', 'pending'),
     )
 
+    vote_types = (('pageant-registration', 'pageant-registration'),
+                  ('pageant-vote', 'pageant-vote'), ('awards-vote', 'awards-vote'))
+
     ref = models.CharField(max_length=200)
     email = models.EmailField()
     number_of_votes = models.IntegerField(default=0)
@@ -26,6 +34,8 @@ class AwardVotingWebhookModel(models.Model):
     amount = models.DecimalField(max_digits=7, decimal_places=2)
     verified = models.BooleanField(default=False)
     order_paid = models.BooleanField(default=False)
+    type_of_vote = models.CharField(
+        choices=vote_types, max_length=30, default='undefined')
     payment_state = models.CharField(
         choices=payment_state_choice, max_length=15, default='pending')
     date_created = models.DateTimeField(default=timezone.now, blank=True)
