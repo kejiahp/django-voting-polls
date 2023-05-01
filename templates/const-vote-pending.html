@@ -1,0 +1,34 @@
+{% extends 'navbar_temp.html' %} {% block content %}
+<div class="container home-page-cont pt-5">
+  <h3 class="text-warning mb-4">Thank You for Participating in TRU voting</h3>
+  <div class="mb-5">
+    <p class="home-page-text">
+      Your payment is currently being validated, once that is done your vote's
+      will be confirmed under your candidate of choice and you will be sent an
+      email verifying your payment from our payment service provider. If any
+      issues occur such as payments made without votes update, payment status
+      not updating after bank deductions have been made and others. Kindly
+      message us on the group
+      <a target="_blank" href="https://chat.whatsapp.com/H9ty9Xj4EjqDxSHnijcc67"
+        >Join Group</a
+      >
+      or contact us through mail
+      <a target="_blank" href="mailto:info4theraveuniversal@gmail.com"
+        >info4theraveuniversal@gmail.com</a
+      >
+    </p>
+
+    <p>
+      In the mean time you can personally check the status of your payments in
+      the page linked below.👇
+    </p>
+    <div class="mt-5">
+      <a
+        href="{% url 'purchase-issues' %}"
+        class="btn btn-lg btn-secondary fw-bold border-warning bg-warning"
+        >Verify Transaction</a
+      >
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,19 +1,6 @@
 import secrets
 from django.db import models
 from django.utils import timezone
-from award.models import AwardsContestant
-
-
-class WebhookTestModel(models.Model):
-    vote_types = (('pageant-registration', 'pageant-registration'),
-                  ('pageant-vote', 'pageant-vote'), ('awards-vote', 'awards-vote'), ('undefined', 'undefined'))
-
-    ref = models.CharField(max_length=200)
-    payment_type = models.CharField(
-        choices=vote_types, max_length=30, default='undefined')
-
-    def __str__(self):
-        return f"Reference {self.ref}"
 
 
 class NewVotingWebhookModel(models.Model):
@@ -40,6 +27,8 @@ class NewVotingWebhookModel(models.Model):
     date_created = models.DateTimeField(default=timezone.now, blank=True)
 
     class Meta:
+        verbose_name = "Vote Payment"
+        verbose_name_plural = "Vote Payments"
         ordering = ("-amount",)
 
     def __str__(self):

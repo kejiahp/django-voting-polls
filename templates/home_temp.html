@@ -1,20 +1,70 @@
 {% extends 'base_temp.html' %}
 {% block content %}
+{% load static %}
 
 <div class="container home-page-cont pt-5">
   <h3 class="text-warning mb-4">Hello There</h3>
   <div class="mb-5">
       <p class="home-page-text">Are your eyes set on the stars? Do you see yourself getting various Modelling Gigs and standing out in the Modelling & Pageantry Industry? Traveling and Visiting Dignitaries? Bagging various Endorsement Deals from big brands?
     
-          Well, get ready for The Rave Universal. A life changing coaching, training Modelling and Pageantry Show.
+          Well, get ready for Glamour Models Worldwide. A life changing coaching, training Modelling and Pageantry Show.
           
           Step onto the stage that can pave way for the rest of your life as we bring various Amateur and Pro Models from different region to contest for the Title while getting lessons from Professional Catwork Instructors, Fashion Tycoons, Top Models from different region, Top National and International Model Scouts.
           
-          Register for The Rave Universal 2023 to stand a chance to be the Next Big Thing</p>
+          Register for Glamour Models Worldwide 2023 to stand a chance to be the Next Big Thing</p>
 
       <div class="mt-5">
-        <a href="{% url 'buyform' %}" class="btn btn-lg btn-secondary fw-bold border-warning bg-warning ">Apply Now</a>
+        <a href="{% url 'agree_terms_and_conditions' %}" class="btn btn-lg btn-secondary fw-bold border-warning bg-warning ">Register Now</a>
       </div>
+
+      <div class="" style="margin-top: 80px;margin-bottom: 80px;">
+        <h3 class="text-warning mb-4">Our Sponsors & Partners</h3>
+
+        <div class="home__logos">
+          <div class="home__logo">
+            <img alt="" src="{% static 'images/Partners-Sponsors-Logo/Logos1.jpg' %}"/>
+          </div>
+
+          <div class="home__logo">
+            <img alt="" src="{% static 'images/Partners-Sponsors-Logo/Logos2.jpg' %}"/>
+          </div>
+
+          <div class="home__logo">
+            <img alt="" src="{% static 'images/Partners-Sponsors-Logo/Logos3.jpg' %}"/>
+          </div>
+
+          <div class="home__logo">
+            <img alt="" src="{% static 'images/Partners-Sponsors-Logo/Logos4.jpg' %}"/>
+          </div>
+
+          <div class="home__logo">
+            <img alt="" src="{% static 'images/Partners-Sponsors-Logo/Logos5.jpg' %}"/>
+          </div>
+
+          <div class="home__logo">
+            <img alt="" src="{% static 'images/Partners-Sponsors-Logo/Logos6.png' %}"/>
+          </div>
+
+          <div class="home__logo">
+            <img alt="" src="{% static 'images/Partners-Sponsors-Logo/Logos7.jpg' %}"/>
+          </div>
+
+          <div class="home__logo">
+            <img alt="" src="{% static 'images/Partners-Sponsors-Logo/Logos8.jpg' %}"/>
+          </div>
+
+          <div class="home__logo">
+            <img alt="" src="{% static 'images/Partners-Sponsors-Logo/Logos9.png' %}"/>
+          </div>
+
+        </div>
+
+        
+        <div class="notice__data mt-5 mb-5">
+          <a href="{% url 'sponsors_and_partners' %}">Read More</a>
+        </div>
+      </div>
+
   </div>
 
 </div>

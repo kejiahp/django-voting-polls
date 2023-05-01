@@ -56,14 +56,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
+    # USER APPS
     'contestants',
     'voters',
     'django.contrib.humanize',
     'blog',
     'award',
     'payments',
-    'cloudinary',
+
 ]
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -104,14 +109,21 @@ CLEVER_VOTING_PG_PORT = os.environ.get("CLEVER_VOTING_PG_PORT")
 CLEVER_VOTING_PG_HOST = os.environ.get("CLEVER_VOTING_PG_HOST")
 CLEVER_VOTING_PG_USER = os.environ.get("CLEVER_VOTING_PG_USER")
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': CLEVER_VOTING_PG_USER,
+#         'HOST': CLEVER_VOTING_PG_HOST,
+#         'PASSWORD': CLEVER_VOTING_PG_PASSWORD,
+#         'PORT': CLEVER_VOTING_PG_PORT,
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': CLEVER_VOTING_PG_USER,
-        'HOST': CLEVER_VOTING_PG_HOST,
-        'PASSWORD': CLEVER_VOTING_PG_PASSWORD,
-        'PORT': CLEVER_VOTING_PG_PORT,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -168,6 +180,8 @@ MESSAGE_TAGS = {
 }
 
 # PAYSTACK TESTING PUBLIC KEY
+# PAYSTACKPUBKEY = os.environ.get("PAY_STACK_TEST_PUBKEY")
+# PAYSTACK_SECRET_KEY = os.environ.get("PAYSTACKSCRTKEY")
 PAYSTACKPUBKEY = os.environ.get("PAY_STACK_TEST_PUBKEY")
 PAYSTACK_SECRET_KEY = os.environ.get("PAYSTACKSCRTKEY")
 

@@ -1,9 +1,9 @@
 import json
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from award.models import AwardsContestant
-from contestants.models import RegisterContestant
-from . models import NewVotingWebhookModel, WebhookTestModel
+from award.models import NewAwardsRegistration
+from contestants.models import NewPageantRegistration
+from . models import NewVotingWebhookModel
 from django.shortcuts import get_object_or_404, render
 
 
@@ -13,16 +13,6 @@ def payment_home(request):
 
 def vote_pending(request):
     return render(request, "vote_pending.html")
-
-
-@csrf_exempt
-def payment_test(request, pk=None):
-    response = json.loads(request.body)
-    if response.get('event') == 'charge.success':
-        vote = WebhookTestModel(
-            ref=response['data']['reference'], payment_type=response['data']['metadata']['order_type'])
-        vote.save()
-    return HttpResponse(status=200)
 
 
 @csrf_exempt
@@ -44,7 +34,7 @@ def payment_webhook(request, pk=None):
                 voter.order_paid = True
                 voter.save()
                 cont_voted = get_object_or_404(
-                    RegisterContestant, id=int(voter.contestant_id))
+                    NewPageantRegistration, id=int(voter.contestant_id))
                 current_votes = cont_voted.number_of_votes
                 new_votes = current_votes + voters_votes_no
                 cont_voted.number_of_votes = new_votes
@@ -56,7 +46,7 @@ def payment_webhook(request, pk=None):
                 voter.order_paid = True
                 voter.save()
                 cont_voted = get_object_or_404(
-                    AwardsContestant, id=int(voter.contestant_id))
+                    NewAwardsRegistration, id=int(voter.contestant_id))
                 current_votes = cont_voted.number_of_votes
                 new_votes = current_votes + voters_votes_no
                 cont_voted.number_of_votes = new_votes

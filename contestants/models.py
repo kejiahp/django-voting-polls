@@ -1,51 +1,52 @@
 import secrets
 from django.db import models
-from django.utils import timezone
-from cloudinary.models import CloudinaryField
 
 
-class RegistrationPurchase(models.Model):
-    ref = models.CharField(max_length=200)
-    email = models.EmailField()
-    phonenumber = models.CharField(
-        max_length=15, default="08000000000", null=True)
-    verified = models.BooleanField(default=False)
-    completed = models.BooleanField(default=False)
-    date_created = models.DateTimeField(default=timezone.now, blank=True)
+class NewPageantRegistration(models.Model):
+    height_measurement = [
+        ("Ft", "Ft"),
+        ("Mm", "Mm")
+    ]
+    experience_types = [
+        ("beginner", "beginner"),
+        ("intermediate", "intermediate"),
+        ("professional", "professional")
+    ]
+    gender_types = [
+        ("male", "male"),
+        ("female", "female")
+    ]
 
-    def __str__(self):
-        return f"Email:{self.email}|id:{self.id}"
-
-    def save(self, *args, **kwargs):
-        while not self.ref:
-            ref = secrets.token_urlsafe(50)
-            object_with_similar_ref = RegistrationPurchase.objects.filter(
-                ref=ref)
-            if not object_with_similar_ref:
-                self.ref = ref
-        super().save(*args, **kwargs)
-
-
-class RegisterContestant(models.Model):
-    refnum = models.CharField(max_length=200, blank=True, null=True)
-    firstname = models.CharField(max_length=30, blank=False)
-    lastname = models.CharField(max_length=30, blank=True, null=True)
-    instagram_handle = models.CharField(max_length=30, blank=True, null=True)
-    tell_us = models.TextField(default="I WANT TO WIN")
-    email = models.EmailField(blank=True, null=True)
+    firstname = models.CharField(max_length=300, blank=False)
+    lastname = models.CharField(max_length=300, blank=False)
+    instagram_handle = models.CharField(max_length=300, blank=False)
+    email = models.EmailField(blank=False)
+    date_of_birth = models.DateField(blank=False)
+    height_type = models.CharField(choices=height_measurement, max_length=4)
+    height = models.CharField(blank=False, max_length=10)
+    gender = models.CharField(choices=gender_types, max_length=10)
+    state_of_residence = models.CharField(max_length=300)
+    is_in_agency = models.CharField(max_length=300, blank=False)
     phonenumber = models.CharField(max_length=20, blank=True, null=True)
-    image1 = CloudinaryField("image")
-    gender = models.CharField(max_length=10)
+    agency_name = models.CharField(max_length=300, blank=True)
+    agency_image = models.ImageField(blank=True, null=True, default=None)
+    modeling_experience = models.CharField(
+        choices=experience_types, max_length=30, blank=True)
+    image1 = models.ImageField(blank=False, null=False)
+    image2 = models.ImageField(blank=True, null=True, default=None)
+    image3 = models.ImageField(blank=True, null=True, default=None)
+
     number_of_votes = models.IntegerField(default=0)
     is_evicted = models.BooleanField(default=False)
     is_confirmed = models.BooleanField(default=False)
-    date_created = models.DateTimeField(default=timezone.now, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ("-number_of_votes",)
-
-    def __str__(self):
-        return f"{self.firstname}|{self.id}"
+        verbose_name = "Pageantry Registration"
+        verbose_name_plural = "Pageantry Registrations"
 
     @property
     def fullname(self):
@@ -55,3 +56,6 @@ class RegisterContestant(models.Model):
             return f"{self.lastname}"
         else:
             return f"{self.lastname} {self.firstname}"
+
+    def __str__(self) -> str:
+        return f"Pageantry Contestant: {self.fullname} | {self.id}"

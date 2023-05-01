@@ -1,56 +1,301 @@
-{% extends 'navbar_temp.html' %}
-{% block content %}
+{% extends 'navbar_temp.html' %} {% block content %}
 <div class="container">
-    <h1 class="text-center">APPLICATION FORM</h1>
-    <form action="{% url 'apply-validate' %}" method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      {% include 'partials/_message.html' %}
-          <input type="hidden" value="{{ ref }}" name="refnum" >
-        <div class="form-group mb-3">
-            <label for="forFirstname">First Name</label>
-            <input type="text" class="form-control" id="forFirstname" placeholder="Firstname" name="firstname" required value="{{autofill.firstname}}">
-        </div>
-        <div class="form-group mb-3">
-            <label for="forLastname">Last Name</label>
-            <input type="text" class="form-control" id="forLastname" placeholder="Lastname" name="lastname" required value="{{autofill.lastname}}">
-        </div>
-        <div class="form-group mb-3">
-            <label for="instagramhandle">Instagram Handle</label>
-            <input type="text" class="form-control" id="instagramhandle" placeholder="Instagram" name="instagramhandle" required value="{{autofill.instagramhandle}}">
-        </div>
-        <div class="form-group mb-3">
-          <label for="tellus">Tell Us</label>
-          <textarea class="form-control" name="tellus" id="tellus" cols="30" rows="5" placeholder="Why you want to win" maxlength="200" required ></textarea>
-        </div>
-        <div class="form-group mb-3">
-          <label for="phonenumber">Phone Number</label>
-          <input class="form-control" name="phonenumber" id="phonenumber" type="text" placeholder="Phone Number" required value="{{autofill.phonenumber}}">
-        </div>
-        <div class="form-group mb-3">
-          <label for="exampleInputEmail1">Email address <span class="text-warning">MUST BE A VALID EMAIL</span></label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" required value="{{autofill.email}}">
-          <small id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.<span class="text-warning"> This will be used to communicate with you.</span></small>
-        </div>
-        <div class="form-group mb-3">
-          <label for="image1">Image 1 <small><span class="text-warning">This will be your model image</span></small></label>
-          <input type="file" class="form-control" id="image1" name="image1" accept="image/*" required >
-        </div>
-        <div class="form-group mb-3">
-            <label for="image2">Image 2 <small><span class="text-warning">This will be your model image</span></small></label>
-            <input type="file" class="form-control" id="image2" name="image2" accept="image/*" required >
-        </div>
+  <h1 class="text-center mt-5">PAGAENT APPLICATION FORM</h1>
+  <form
+    action="{% url 'v2_apply_validator' %}"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %} {% include 'partials/_message.html' %}
 
-        <div class="custom-control custom-radio mb-3">
-          <input type="radio" class="custom-control-input" id="defaultUnchecked" name="gender" value="Male" checked>
-          <label class="custom-control-label" for="defaultUnchecked">Male</label>
-        </div>
+    <div class="form-group mb-3">
+      <label for="forFirstname">First Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="forFirstname"
+        placeholder="Firstname"
+        name="firstname"
+        required
+        {% if form.is_bound %}value="{{form.firstname.value}}"{% endif %}
+      />
+      {% for err in form.firstname.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
 
-        <div class="custom-control custom-radio mb-3">
-          <input type="radio" class="custom-control-input" id="defaultChecked" name="gender" value="Female">
-          <label class="custom-control-label" for="defaultChecked">Female</label>
-        </div>
+    <div class="form-group mb-3">
+      <label for="forLastname">Last Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="forLastname"
+        placeholder="Lastname"
+        name="lastname"
+        required
+        {% if form.is_bound %}value="{{form.lastname.value}}"{% endif %}
+      />
+      {% for err in form.lastname.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
 
-        <button type="submit" class="btn btn-warning">SUBMIT</button>
-      </form>
+    <div class="form-group mb-3">
+      <label for="instagram_handle">Instagram Handle</label>
+      <input
+        type="text"
+        class="form-control"
+        id="instagram_handle"
+        placeholder="Instagram"
+        name="instagram_handle"
+        {% if form.is_bound %}value="{{form.instagram_handle.value}}"{% endif %}
+        required
+      />
+      {% for err in form.instagram_handle.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="date_of_birth">Date of Birth</label>
+      <input
+        class="form-control"
+        name="date_of_birth"
+        id="date_of_birth"
+        type="date"
+        required
+        {% if form.is_bound %}value="{{form.date_of_birth.value}}"{% endif %}
+      />
+      {% for err in form.date_of_birth.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="height_type">Height Measurement Type(Ft/Mm)</label>
+      <select class="form-control" name="height_type" id="height_type" required>
+        <option disabled>select a unit</option>
+        <option value="Ft">Feet</option>
+        <option value="Mm">Millimeters</option>
+      </select>
+      {% for err in form.height_type.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="height">Height</label>
+      <input
+        class="form-control"
+        name="height"
+        id="height"
+        type="number"
+        min="0"
+        placeholder="height in numbers"
+        {% if form.is_bound %}value="{{form.height.value}}"{% endif %}
+        required
+      />
+      {% for err in form.height.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="exampleInputEmail1"
+        >Email address
+        <span class="text-warning">MUST BE A VALID EMAIL</span></label
+      >
+      <input
+        type="email"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        placeholder="Enter email"
+        name="email"
+        required
+        {% if form.is_bound %}value="{{form.email.value}}"{% endif %}
+      />
+      <small id="emailHelp" class="form-text text-white"
+        >We'll never share your email with anyone else.<span
+          class="text-warning"
+        >
+          This will be used to communicate with you.</span
+        ></small
+      >
+      {% for err in form.email.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="state_of_residence">State of Residence</label>
+      <input
+        class="form-control"
+        name="state_of_residence"
+        id="state_of_residence"
+        type="text"
+        placeholder="state of residence"
+        required
+        {% if form.is_bound %}value="{{form.state_of_residence.value}}"{% endif %}
+      />
+      {% for err in form.state_of_residence.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="phonenumber">Phone Number</label>
+      <input
+        class="form-control"
+        name="phonenumber"
+        id="phonenumber"
+        type="text"
+        placeholder="080 123 456 78"
+        {% if form.is_bound %}value="{{form.phonenumber.value}}"{% endif %}
+        required
+      />
+      {% for err in form.phonenumber.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="gender">Gender</label>
+      <select class="form-control" name="gender" id="gender" required>
+        <option disabled>select an option</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      {% for err in form.gender.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="image1"
+        >Image 1
+        <small
+          ><span class="text-warning"
+            >This will be your model image</span
+          ></small
+        ></label
+      >
+      <input
+        type="file"
+        class="form-control"
+        id="image1"
+        name="image1"
+        accept="image/*"
+        required
+      />
+      {% for err in form.image1.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="image2"
+        >Image 2
+        <small><span class="text-warning">optional</span></small></label
+      >
+      <input
+        type="file"
+        class="form-control"
+        id="image2"
+        name="image2"
+        accept="image/*"
+      />
+      {% for err in form.image2.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="image3"
+        >Image 3
+        <small><span class="text-warning">optional</span></small></label
+      >
+      <input
+        type="file"
+        class="form-control"
+        id="image3"
+        name="image3"
+        accept="image/*"
+      />
+      {% for err in form.image3.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="is_in_agency">In a modeling agency?</label>
+      <small
+        ><span class="text-warning"
+          >If so please provide agency information below</span
+        ></small
+      >
+      <select
+        class="form-control"
+        name="is_in_agency"
+        id="is_in_agency"
+        required
+      >
+        <option disabled>select an option</option>
+        <option value="True">Yes</option>
+        <option value="False">No</option>
+      </select>
+      {% for err in form.is_in_agency.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="agency_name">Agency Name</label>
+      <input
+        class="form-control"
+        name="agency_name"
+        id="agency_name"
+        type="text"
+        placeholder="agency name"
+        {% if form.is_bound %}value="{{form.agency_name.value}}"{% endif %}
+      />
+      {% for err in form.agency_name.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="agency_modeling_image">Agency Modeling Image</label>
+      <input
+        class="form-control"
+        name="agency_modeling_image"
+        id="agency_modeling_image"
+        type="file"
+        accept="image/*"
+      />
+      {% for err in form.agency_modeling_image.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <div class="form-group mb-3">
+      <label for="modeling_experience">Modeling Experience Level</label>
+      <select
+        class="form-control"
+        name="modeling_experience"
+        id="modeling_experience"
+      >
+        <option disabled>select an option</option>
+        <option value="beginner">Beginner</option>
+        <option value="intermediate">Intermediate</option>
+        <option value="professional">Professional</option>
+      </select>
+      {% for err in form.modeling_experience.errors %}
+      <small class="text-danger">{{err}}</small>
+      {% endfor %}
+    </div>
+
+    <button type="submit" class="btn btn-warning">SUBMIT</button>
+  </form>
 </div>
 {% endblock content %}

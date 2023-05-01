@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import WebhookTestModel, NewVotingWebhookModel
+from .models import NewVotingWebhookModel
 
 
 class NewVotingWebhookModelAdmin(admin.ModelAdmin):
@@ -8,5 +8,4 @@ class NewVotingWebhookModelAdmin(admin.ModelAdmin):
 
 
 # Register your models here.
-admin.site.register(WebhookTestModel)
 admin.site.register(NewVotingWebhookModel, NewVotingWebhookModelAdmin)

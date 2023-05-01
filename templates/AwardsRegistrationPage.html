@@ -1,0 +1,176 @@
+{% extends 'navbar_temp.html' %} {% block content %}
+<div class="container">
+    <h1 class="text-center mt-5">AWARDS APPLICATION FORM</h1>
+    <form
+      action="{% url 'v2_award_validator' %}"
+      method="POST"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %} {% include 'partials/_message.html' %}
+
+      <div class="form-group mb-3">
+        <label for="firstname">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstname"
+          placeholder="Firstname"
+          name="firstname"
+          required
+          {% if form.is_bound %}value="{{form.firstname.value}}"{% endif %}
+        />
+        {% for err in form.firstname.errors %}
+        <small class="text-danger">{{err}}</small>
+        {% endfor %}
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="lastname">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastname"
+          placeholder="lastname"
+          name="lastname"
+          required
+          {% if form.is_bound %}value="{{form.lastname.value}}"{% endif %}
+        />
+        {% for err in form.lastname.errors %}
+        <small class="text-danger">{{err}}</small>
+        {% endfor %}
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="email"
+          name="email"
+          required
+          {% if form.is_bound %}value="{{form.email.value}}"{% endif %}
+        />
+        {% for err in form.email.errors %}
+        <small class="text-danger">{{err}}</small>
+        {% endfor %}
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="category">Award Category</label>
+        <br />
+        <small class="text-warning">Don't know which category to pick? <a href="{% url 'awards_category_description' %}">Click Here to see category descriptions.</a></small>
+        <select class="form-control" name="category" id="category" required>
+          <option disabled>select a unit</option>
+          <option value="VIDEO DIRECTOR OF THE YEAR">VIDEO DIRECTOR OF THE YEAR</option>
+          <option value="PAGEANT ICON OF THE YEAR">PAGEANT ICON OF THE YEAR</option>
+          <option value="ARTISTE OF THE YEAR">ARTISTE OF THE YEAR</option>
+          <option value="MEDIA PERSONALITY OF THE YEAR">MEDIA PERSONALITY OF THE YEAR</option>
+          <option value="ENTREPRENEUR OF THE YEAR">ENTREPRENEUR OF THE YEAR</option>
+          <option value="CINEMATIC STAR OF THE YEAR">CINEMATIC STAR OF THE YEAR</option>
+          <option value="SONG / ARTISTE OF THE YEAR">SONG / ARTISTE OF THE YEAR</option>
+          <option value="BRAND OF THE YEAR">BRAND OF THE YEAR</option>
+          <option value="DANCER OF THE YEAR">DANCER OF THE YEAR</option>
+          <option value="MODEL OF THE YEAR OF THE YEAR">MODEL OF THE YEAR OF THE YEAR</option>
+          <option value="COMEDIAN / SKITMAKER OF THE YEAR">COMEDIAN / SKITMAKER OF THE YEAR</option>
+          <option value="FASHION DESIGNER OF THE YEAR">FASHION DESIGNER OF THE YEAR</option>
+          <option value="REAL ESTATE COMPANY OF THE YEAR">REAL ESTATE COMPANY OF THE YEAR</option>
+          <option value="SKINCARE BRAND OF THE YEAR">SKINCARE BRAND OF THE YEAR</option>
+          <option value="CREATIVE DIRECTOR OF THE YEAR">CREATIVE DIRECTOR OF THE YEAR</option>
+          <option value="MC OF THE YEAR">MC OF THE YEAR</option>
+          <option value="ATHLETE OF THE YEAR">SOCIAL MEDIA INFLUENCER OF THE YEAR</option>
+          <option value="CONTENT CREATOR OF THE YEAR">CONTENT CREATOR OF THE YEAR</option>
+          <option value="TV STAR OF THE YEAR">TV STAR OF THE YEAR</option>
+          <option value="MAKEUP ARTISTE OF THE YEAR">MAKEUP ARTISTE OF THE YEAR</option>
+          <option value="CEO OF THE YEAR">CEO OF THE YEAR</option>
+          <option value="CREATIVE OF THE YEAR">CREATIVE OF THE YEAR</option> 
+          <option value="WRITER / BLOGGER OF THE YEAR">WRITER / BLOGGER OF THE YEAR</option> 
+          <option value="DJ OF THE YEAR">DJ OF THE YEAR</option> 
+        </select>
+        {% for err in form.category.errors %}
+        <small class="text-danger">{{err}}</small>
+        {% endfor %}
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="date_birth">Date Of Birth</label>
+        <input
+          type="date"
+          class="form-control"
+          id="date_birth"
+          placeholder="date_birth"
+          name="date_birth"
+          required
+          {% if form.is_bound %}value="{{form.date_birth.value}}"{% endif %}
+        />
+        {% for err in form.date_birth.errors %}
+        <small class="text-danger">{{err}}</small>
+        {% endfor %}
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="instagram_handle">Instagram Handle</label>
+        <input
+          type="text"
+          class="form-control"
+          id="instagram_handle"
+          placeholder="instagram handle"
+          name="instagram_handle"
+          required
+          {% if form.is_bound %}value="{{form.instagram_handle.value}}"{% endif %}
+        />
+        {% for err in form.instagram_handle.errors %}
+        <small class="text-danger">{{err}}</small>
+        {% endfor %}
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="gender">Gender</label>
+        <select class="form-control" name="gender" id="gender" required>
+          <option disabled>select a unit</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+        {% for err in form.gender.errors %}
+        <small class="text-danger">{{err}}</small>
+        {% endfor %}
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="brand_name">Brand Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="brand_name"
+          placeholder="brand name"
+          name="brand_name"
+          required
+          {% if form.is_bound %}value="{{form.brand_name.value}}"{% endif %}
+        />
+        {% for err in form.brand_name.errors %}
+        <small class="text-danger">{{err}}</small>
+        {% endfor %}
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="industry_years">Number of years in Industry</label>
+        <input
+          type="number"
+          min="0"
+          class="form-control"
+          id="industry_years"
+          placeholder="no of industry years"
+          name="industry_years"
+          required
+          {% if form.is_bound %}value="{{form.industry_years.value}}"{% endif %}
+        />
+        {% for err in form.industry_years.errors %}
+        <small class="text-danger">{{err}}</small>
+        {% endfor %}
+      </div>
+
+      <button type="submit" class="btn btn-warning">SUBMIT</button>
+
+</form>
+</div>
+{% endblock content %}
