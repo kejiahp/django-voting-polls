@@ -109,23 +109,27 @@ CLEVER_VOTING_PG_PORT = os.environ.get("CLEVER_VOTING_PG_PORT")
 CLEVER_VOTING_PG_HOST = os.environ.get("CLEVER_VOTING_PG_HOST")
 CLEVER_VOTING_PG_USER = os.environ.get("CLEVER_VOTING_PG_USER")
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'railway',
-#         'USER': CLEVER_VOTING_PG_USER,
-#         'HOST': CLEVER_VOTING_PG_HOST,
-#         'PASSWORD': CLEVER_VOTING_PG_PASSWORD,
-#         'PORT': CLEVER_VOTING_PG_PORT,
-#     }
-# }
+DATABASES = dict()
+IS_LIVE = os.environ.get("IS_LIVE")
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if IS_LIVE == "True":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'railway',
+            'USER': CLEVER_VOTING_PG_USER,
+            'HOST': CLEVER_VOTING_PG_HOST,
+            'PASSWORD': CLEVER_VOTING_PG_PASSWORD,
+            'PORT': CLEVER_VOTING_PG_PORT,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -179,9 +183,7 @@ MESSAGE_TAGS = {
     messages.ERROR: "danger"
 }
 
-# PAYSTACK TESTING PUBLIC KEY
-# PAYSTACKPUBKEY = os.environ.get("PAY_STACK_TEST_PUBKEY")
-# PAYSTACK_SECRET_KEY = os.environ.get("PAYSTACKSCRTKEY")
+# PAYSTACK KEYS
 PAYSTACKPUBKEY = os.environ.get("PAY_STACK_TEST_PUBKEY")
 PAYSTACK_SECRET_KEY = os.environ.get("PAYSTACKSCRTKEY")
 
