@@ -1,7 +1,6 @@
 import secrets
 from django.db import models
 from django.utils import timezone
-from cloudinary.models import CloudinaryField
 
 
 class AwardsCategory(models.Model):
