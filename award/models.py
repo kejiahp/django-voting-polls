@@ -61,7 +61,7 @@ class NewAwardsRegistration(models.Model):
                               max_length=300, blank=False)
     brand_name = models.CharField(max_length=300, blank=False)
     industry_years = models.IntegerField(blank=False)
-    image = models.ImageField(blank=True, null=True, default=None)
+    image1 = models.ImageField(blank=True, null=True, default=None)
     phone_no = models.CharField(blank=False, max_length=20)
 
     number_of_votes = models.IntegerField(default=0)
