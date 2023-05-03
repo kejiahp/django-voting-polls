@@ -13,6 +13,7 @@ class NewAwardsRegistrationForm(forms.Form):
     firstname = forms.CharField(max_length=300, required=True)
     lastname = forms.CharField(max_length=300, required=True)
     email = forms.EmailField(required=True)
+    phone_no = forms.CharField(required=True)
 
     category = forms.ChoiceField(
         choices=categories, required=True)
@@ -22,4 +23,4 @@ class NewAwardsRegistrationForm(forms.Form):
     gender = forms.ChoiceField(choices=gender_types)
     brand_name = forms.CharField(max_length=300, required=True)
     industry_years = forms.IntegerField(required=True)
-    image = forms.ImageField(required=False)
+    image = forms.ImageField(required=True)

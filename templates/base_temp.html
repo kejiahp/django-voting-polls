@@ -81,14 +81,14 @@
                   >Verify Transaction</a
                 >
                 <a class="dropdown-item" href="{% url 'blog-posts' %}">Blogs</a>
-                <a class="dropdown-item" href="{% url 'pagaentry_terms_and_conditions' %}">Pageantry Terms and conditions</a>
-                <a class="dropdown-item" href="{% url 'awards_terms_and_conditions' %}">Awards Terms and conditions</a>
+                {% comment %} <a class="dropdown-item" href="{% url 'pagaentry_terms_and_conditions' %}">Pageantry Terms and conditions</a>
+                <a class="dropdown-item" href="{% url 'awards_terms_and_conditions' %}">Awards Terms and conditions</a> {% endcomment %}
                 <a class="dropdown-item" href="{% url 'sponsors_and_partners' %}">Partners & Sponsors</a>
 
                 <a
                   class="dropdown-item"
                   target="_blank"
-                  href="https://mega.nz/folder/rOhh0KQR#rsBYgCd_qGF2InKjsCRlBQ"
+                  {% comment %} href="https://mega.nz/folder/rOhh0KQR#rsBYgCd_qGF2InKjsCRlBQ" {% endcomment %}
                   >Gallery</a
                 >
               </div>

@@ -6,6 +6,10 @@ from award.models import NewAwardsRegistration, AwardsCategory
 from django.shortcuts import get_object_or_404
 
 
+def awards_successful_registration(request):
+    return render(request, "RegistrationSuccessfulAward.html")
+
+
 class NewAwardsRegistrationView(View):
     def get(self, request, *args, **kwargs):
         return render(request, "AwardsRegistrationPage.html")
@@ -22,7 +26,7 @@ class NewAwardsRegistrationView(View):
                     category=award_category_instance, **form.cleaned_data)
                 award_contestant.save()
 
-                return redirect('v2_registration_success')
+                return redirect('awards_registration_successful')
 
             messages.error(
                 request, "A contestant already as this email")

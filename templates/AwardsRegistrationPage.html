@@ -1,4 +1,52 @@
 {% extends 'navbar_temp.html' %} {% block content %}
+<!-- Button trigger modal -->
+<button type="button" id="modalActivate" class="visually-hidden btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Launch demo modal
+  </button>
+
+  <div class>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-warning text-center" id="exampleModalLabel">You're a first timer👋</h5>
+          </div>
+          <div class="modal-body">
+            <p class="fs-6 text-dark">
+              Before proceeding to fill the form, we kindly request that you review and
+              agree to our terms and conditions. Our terms outline important information
+              about your use of this website and the services we offer. By proceeding to
+              register, you thereby agree to these terms, you acknowledge
+              that you have read and understood them, and you agree to be bound by their
+              provisions. If you have any questions or concerns, please do not hesitate
+              to contact us. Thank you for your cooperation.
+            </p>
+            <h5 class="text-dark">Terms and Conditions</h5>
+            <div>
+              <a
+              href="{% url 'awards_terms_and_conditions' %}"
+              style="font-size:14px;color:#000;"
+              >Awards Registration Terms & Conditions</a>
+            </div>
+  
+          </div>
+   
+          <div class="modal-footer">
+            <div class="notice__data__aligned">
+              <a
+              href="{% url 'home' %}"
+              class="btn btn-warning"
+              >DECLINE</a>
+              <button type="button" class="btn btn-secondary py-2" id="closeModal" data-bs-dismiss="modal">ACCEPT</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  
+  
+  </div>
 <div class="container">
     <h1 class="text-center mt-5">AWARDS APPLICATION FORM</h1>
     <form
@@ -108,6 +156,38 @@
         {% endfor %}
       </div>
 
+      
+      <div class="form-group mb-3">
+        <label for="date_birth">Image</label>
+        <input
+          type="file"
+          accept="image/*"
+          class="form-control"
+          id="image"
+          placeholder="image"
+          name="image"
+          required
+        />
+        {% for err in form.image.errors %}
+        <small class="text-danger">{{err}}</small>
+        {% endfor %}
+      </div>
+      
+      <div class="form-group mb-3">
+        <label for="date_birth">Phone Number</label>
+        <input
+          type="text"
+          class="form-control"
+          id="phone_no"
+          placeholder="phone number"
+          name="phone_no"
+          required
+        />
+        {% for err in form.phone_no.errors %}
+        <small class="text-danger">{{err}}</small>
+        {% endfor %}
+      </div>
+
       <div class="form-group mb-3">
         <label for="instagram_handle">Instagram Handle</label>
         <input
@@ -173,4 +253,34 @@
 
 </form>
 </div>
+ 
 {% endblock content %}
+
+{% block scriptholder %} 
+<script  type="text/javascript">
+
+
+window.setTimeout(function() {
+  if( document.getElementById('modalActivate') ) {
+    /* Code goes here*/ 
+    function activator() {
+      var myModalActivator = document.getElementById('modalActivate')
+      myModalActivator.click()
+    }
+    const isAwardFirstTimer = localStorage.getItem("first_award_timer");
+    if (!isAwardFirstTimer) {
+      activator()
+    }
+  }
+}, 2000 /* but after 400 ms */);
+
+function awardFirstTimerTrue() {
+  localStorage.setItem("first_award_timer", "true");
+}
+
+const closeModal = document.getElementById('closeModal')
+closeModal.addEventListener('click', awardFirstTimerTrue)
+
+</script>
+
+{% endblock scriptholder %}
