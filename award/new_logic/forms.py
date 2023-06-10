@@ -23,4 +23,4 @@ class NewAwardsRegistrationForm(forms.Form):
     gender = forms.ChoiceField(choices=gender_types)
     brand_name = forms.CharField(max_length=300, required=True)
     industry_years = forms.IntegerField(required=True)
-    image = forms.ImageField(required=True)
+    image1 = forms.ImageField(required=True)
